@@ -17,8 +17,8 @@ gulp.task('build-css', function() {
         .pipe(sass())						//Pass to SASS
         .pipe(cachebust.resources())		//Clear the cache
         .pipe(concat('styles.css'))			//Concat all output of those files into styles.css
-        .pipe(sourcemaps.write('./maps'))	//Write out original files. THIS IS FOR DEBUGGING
-        .pipe(gulp.dest('./dist'));			//Write everything out into a folder called dist
+        .pipe(sourcemaps.write('./'))	//Write out original files. THIS IS FOR DEBUGGING
+        .pipe(gulp.dest('./dist/css'));			//Write everything out into a folder called dist
 })
 
 gulp.task('clean', function(cb) {

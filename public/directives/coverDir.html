@@ -1,0 +1,22 @@
+
+<div class="shelf">
+	<img src="./img/empty_bookshelf_top.jpg" class="shelf-top" />
+	<span ng-repeat="movie in movies" class='result-box'>
+		<a ui-sref="details({id: movie.imdbID})">
+			<div class="cover hover-effect">
+				<img class="cover-img" ng-src="{{movie.Poster}}"/>
+				<div class="title-overlay">
+					<h2>
+						{{movie.Title}}
+					</h2>
+				</div>
+			</div>
+		</a>
+		<p> Year: {{movie.Year}}</p>
+		<!-- <button ng-if="!!movie.own" ng-click="addMovieToOwned(movie)" class="col-in">Owned</button> -->
+		<!-- <button ng-if="!!!movie.own" ng-click="addMovieToOwned(movie)" class="col-out">Own?</button> -->
+		
+		<!-- <button ng-if="!!movie.watch" ng-click="addMovieToWatch(movie)" class="col-in">Watch</button> -->
+		<!-- <button ng-if="!!!movie.watch" ng-click="addMovieToWatch(movie)" class="col-out">Watch?</button> -->
+	</span>
+</div>	

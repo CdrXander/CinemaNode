@@ -1,0 +1,275 @@
+
+@import 'common'; 
+
+$blu-ray-blue: #0060AA;
+
+* {
+	box-sizing: border-box;
+	overflow: auto;
+}
+
+body {
+	margin: 0;
+//	background-color:black;
+// 	background-image:url("./../img/theater-seats.jpg");
+// 	background-repeat: no-repeat;
+// 	background-attachment: fixed;
+// 	background-size: 100% auto;
+// 	background-position:0 10vh;
+}
+
+p {
+	-webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+}
+
+main {
+	margin-top: 12vh;
+}
+
+header {
+	background-color: rgba(10,10,10,.80);
+	width: 100%;
+	height: 10vh;
+	min-height: 40px;
+	
+	display: flex;
+	align-items: center;
+	
+	position: fixed;
+	z-index: 999;
+
+	font-family: 'Arvo', serif;
+	justify-content: space-between;
+	padding-left: 10px;
+	padding-right: 10px;
+
+	a:link, a:visited, a:hover, a:active {
+    	text-decoration: none;
+    	color: white;
+	}
+}
+
+
+
+nav {
+	align-items: center;
+	justify-content: flex-end;
+	overflow: visible;
+
+	li {
+		float: right;
+		font-size: 20px;
+		margin-left: 10px;
+		margin-right: 10px;
+		overflow: visible;
+
+		a {
+			padding: 5px;
+			border-radius: 5px;
+		}
+		a:hover {
+			background-color: #5F5F5F;
+		}
+	}
+
+
+}
+
+ul {
+	overflow: visible;
+	list-style-type: none;;
+}
+
+h3 {
+	text-transform: uppercase;
+}
+
+h1{
+	font-family: 'Arvo', serif;
+	color:white;
+	text-transform:uppercase;
+	text-align:center;
+	background-color:rgba(0,0,0,0.5);
+	overflow:visible;
+}
+
+
+/*CLASSES*/
+
+.nav-list {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+
+}
+
+.title {
+	color:white;
+	font-size: 30px;
+	overflow:visible;
+	text-decoration: none;
+
+}
+
+.shelf-container {
+	position: relative;
+	display: flex;
+	justify-content: space-around;
+}
+
+.shelf-border {
+	position:relative;
+	display:inline-block;
+	border:1px solid white;
+	border-radius: 10px;
+	padding: 10px;
+	min-width: 170px;
+	width: 40vw;
+	overflow:hidden;
+
+	background-color: black;
+	color:white;
+
+	h3 {
+		text-align: center;
+		color: white;
+	}
+
+	input {
+		color:black;
+	}
+	button {
+		color:black;
+	}
+}
+
+.shelf {
+	display:flex;
+	align-content: flex-start;
+	flex-wrap: wrap;
+
+	background-image: url("./../../img/empty_bookshelf.jpg");
+	background-size: 100% 341px;
+	background-position: 0 27px;
+	border-radius:5px;
+	
+	min-height:357px;
+	height:100%;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.shelf-top {
+	display: inline-block;
+	max-height: 27px;
+	margin-left:-20px;
+	margin-right:-20px;
+}
+
+.cover {
+	display: inline-flex;
+	justify-content: center;
+	background-color: black;
+	width: 150px;
+	height: 190px;
+	border:1px solid blue;
+	border-radius: 5px;
+	overflow:hidden;
+
+	position: relative;
+}
+
+.cover-img {
+	position:relative;
+	width: auto;
+	height: auto;
+}
+
+.cover-img-lrg {
+	display:inline-block;
+	width:100%;
+	height:auto;
+	max-width: 360px;
+	max-height: 450px;
+	border: 5px solid $blu-ray-blue;
+	border-radius:5px;
+}
+
+.transparent-shelf-border{
+	display:inline-block;
+	padding: 10px;
+	min-width: 170px;
+	width: 40vw;
+	background-color: rgba(0,0,0,0);
+}
+
+.result-box {
+	width: 170px;
+	height: 320px;
+	text-align: center;
+	overflow:hidden;
+
+	padding: 5px;
+	margin: 5px;
+	margin-bottom: 15px;
+		
+	border: 2px solid white;
+	border-radius: 5px;
+	background-color:$blu-ray-blue;
+	color:white;
+}
+
+.search-box { 
+
+	margin:auto;
+	min-width: 200px;
+	min-height: 250px;
+	background-color:#5A051C;
+	padding: 20px;
+
+	display:flex;
+	flex-direction: column;
+	justify-content:space-around;
+	align-items:center;
+
+	border-radius:5px;
+	border: 1px solid black;
+	h3 {
+		color:white;
+		margin:0;
+	}
+}
+
+// Short for "In Collection"
+.col-in {
+	background-color:green;
+}
+
+//Short for "Not In Collection"
+.col-out {
+	background-color:red;
+}
+
+
+@media (max-width:600px) {
+	.shelf-container {
+		display:block;
+	}
+
+	.shelf-border {
+		display:block;
+		margin:auto;
+		width:80vw;
+		min-width:300px;
+	}
+
+	.transparent-shelf-border {
+		display:block;
+		margin:auto;
+		width:80vw;
+		min-width:300px;
+	}
+}

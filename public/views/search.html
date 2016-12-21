@@ -1,0 +1,15 @@
+<h1>Search for Movies</h1>
+
+
+<section class="shelf-container">
+	<div class="search-box">
+		<form ng-submit="searchForMovies()">
+			<input type="text" ng-model="searchTitle" placeholder="Enter a Movie Title...">
+			<input type="submit" value="Search">
+		</form>
+	</div>
+	<div class="shelf-border">
+		<movie-display movies="movies"></movie-display>	
+	</div>
+	
+</section>
