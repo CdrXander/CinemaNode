@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="movieShelf" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MovieShelf</title>
+	
+	<!-- STYLESHEETS -->
+	<link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="dist/styles.css">
+</head>
+<body ng-controller="mainCtrl">
+
+	<header>
+		<span class="title">
+			<a ui-sref='home'>MovieShelf</a>
+		</span>
+		<nav>
+			<ul>
+				<li><a ui-sref='search'>Search Movies</a></li>
+				<li><a ui-sref='home'>Go To Shelf</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main ui-view></main>
+
+	
+	<!-- jQuery and Angular Scripts, including ui-router -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+	<!-- Custom Scripts -->
+	<script src="dist/js/bundle.js"></script>
+</body>
+</html>
