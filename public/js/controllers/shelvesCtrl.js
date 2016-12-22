@@ -4,6 +4,7 @@ angular.module('cinemaNode').controller('shelvesCtrl', function($scope, dummyDat
 	$scope.loadMovieData = function() {
 		$scope.ownedMovies = [];
 		$scope.watchMovies = [];
+		$scope.seenMovies  = [];
 
 		var savedMovies = dummyDataService.getDummyData();
 		for (let movie of savedMovies) {
@@ -12,6 +13,9 @@ angular.module('cinemaNode').controller('shelvesCtrl', function($scope, dummyDat
 			}
 			if (movie.watch === true) {
 				$scope.watchMovies.push(movie);
+			}
+			if (movie.seen === true) {
+				$scope.seenMovies.push(movie);
 			}
 		}
 		$scope.test = "Test";
