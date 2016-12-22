@@ -14,6 +14,7 @@ var cachebust = new CacheBuster();
 gulp.task('build-css', function() {
 	gulp.src('./css/*')
 	    .pipe(sourcemaps.init())			//Remember original state
+        .pipe(print())
         .pipe(sass())						//Pass to SASS
         .pipe(cachebust.resources())		//Clear the cache
         .pipe(concat('styles.css'))			//Concat all output of those files into styles.css

@@ -18,7 +18,6 @@ angular.module('cinemaNode').controller('shelvesCtrl', function($scope, dummyDat
 				$scope.seenMovies.push(movie);
 			}
 		}
-		$scope.test = "Test";
 	}
 
 	$scope.loadMovieData();
