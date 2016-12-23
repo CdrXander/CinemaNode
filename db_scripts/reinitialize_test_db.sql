@@ -1,3 +1,102 @@
+-- DELETE DB
+DROP TABLE IF EXISTS shelf_movie;
+DROP TABLE IF EXISTS movie;
+DROP TABLE IF EXISTS shelf;
+DROP TABLE IF EXISTS users;
+DROP SEQUENCE IF EXISTS shelf_pk;
+DROP SEQUENCE IF EXISTS users_pk;
+
+-- CREATE DB
+
+-- CREATE SEQUENCEs for the users and shelf primary keys
+CREATE SEQUENCE public.users_pk
+    INCREMENT 1
+    START 100
+    MINVALUE 1
+;
+
+ALTER SEQUENCE public.users_pk
+    OWNER TO postgres;
+
+
+CREATE SEQUENCE public.shelf_pk
+    INCREMENT 1
+    START 100
+    MINVALUE 1
+;
+
+ALTER SEQUENCE public.shelf_pk
+    OWNER TO postgres;
+
+
+-- CREATE the USERS table
+CREATE TABLE public.users
+(
+    user_id integer NOT NULL DEFAULT nextval('users_pk'::regclass),
+    fb_user_id text ,
+    first_name text ,
+    last_name text,
+    join_date date,
+    own_shelf_id integer,
+    seen_shelf_id integer,
+    watch_shelf_id integer,
+    CONSTRAINT user_pkey PRIMARY KEY (user_id)
+);
+ALTER TABLE public.users
+    OWNER to postgres;
+
+
+-- CREATE the SHELF table
+CREATE TABLE public.shelf
+(
+    shelf_id integer NOT NULL DEFAULT nextval('shelf_pk'::regclass),
+    user_id integer,
+    name text,
+    summary text,
+    create_date timestamp,
+    PRIMARY KEY (shelf_id),
+    FOREIGN KEY (user_id)
+        REFERENCES public.users (user_id) MATCH SIMPLE
+);
+ALTER TABLE public.shelf
+    OWNER to postgres;
+
+
+-- CREATE the MOVIE table
+CREATE TABLE public.movie
+(
+    movie_id text,
+    title text,
+    poster_url text,
+    year integer,
+    rating text,
+    PRIMARY KEY ("imdbID")
+);
+ALTER TABLE public.movie
+    OWNER to postgres;
+
+
+
+-- CREATE the SHELF_MOVIE relational table
+CREATE TABLE public.shelf_movie
+(
+    shelf_id integer,
+    movie_id text,
+    create_date timestamp,
+    PRIMARY KEY (shelf_id, movie_id),
+    FOREIGN KEY (shelf_id)
+        REFERENCES public.shelf (shelf_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    FOREIGN KEY (movie_id)
+        REFERENCES public.movie ("imdbID") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+ALTER TABLE public.shelf_movie
+    OWNER to postgres;
+
+-- INSERT TEST DATA
 
 -- Create Test Users 
 INSERT INTO public.users(
@@ -16,7 +115,7 @@ INSERT INTO public.users
 	VALUES (99,'Testy', 'Testerson');
 INSERT INTO public.shelf
 	(shelf_id,user_id, name, summary)
-	VALUES (99, 'My Movies', 'Movies I own');
+	VALUES (99,99, 'My Movies', 'Movies I own');
 
 -- Now give him a few shelves
 INSERT INTO public.shelf(
@@ -113,11 +212,14 @@ INSERT INTO public.shelf_movie VALUES (3, 'tt0120915');
 INSERT INTO public.movie VALUES ('tt0121766','Star Wars: Episode III - Revenge of the Sith','https://images-na.ssl-images-amazon.com/images/M/MV5BNTc4MTc3NTQ5OF5BMl5BanBnXkFtZTcwOTg0NjI4NA@@._V1_SX300.jpg',2005,'PG-13');
 INSERT INTO public.shelf_movie VALUES (1, 'tt0121766');
 INSERT INTO public.shelf_movie VALUES (3, 'tt0121766');
+INSERT INTO public.shelf_movie VALUES (99, 'tt0121766');
 
 INSERT INTO public.movie VALUES ('tt0121765','Star Wars: Episode II - Attack of the Clones','https://images-na.ssl-images-amazon.com/images/M/MV5BNDRkYzA4OGYtOTBjYy00YzFiLThhYmYtMWUzMDBmMmZkM2M3XkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SX300.jpg',2002,'PG');
 INSERT INTO public.shelf_movie VALUES (1, 'tt0121765');
 INSERT INTO public.shelf_movie VALUES (3, 'tt0121765');
+INSERT INTO public.shelf_movie VALUES (99, 'tt0121765');
 
 INSERT INTO public.movie VALUES ('tt3748528','Rogue One: A Star Wars Story','https://images-na.ssl-images-amazon.com/images/M/MV5BMjEwMzMxODIzOV5BMl5BanBnXkFtZTgwNzg3OTAzMDI@._V1_SX300.jpg',2016, 'PG-13');
 INSERT INTO public.shelf_movie VALUES (2, 'tt3748528');
 INSERT INTO public.shelf_movie VALUES (3, 'tt3748528');
+INSERT INTO public.shelf_movie VALUES (99,'tt3748528');

@@ -1,7 +1,29 @@
+
+-- CREATE SEQUENCEs for the users and shelf primary keys
+CREATE SEQUENCE public.users_pk
+    INCREMENT 1
+    START 100
+    MINVALUE 1
+;
+
+ALTER SEQUENCE public.users_pk
+    OWNER TO postgres;
+
+
+CREATE SEQUENCE public.shelf_pk
+    INCREMENT 1
+    START 100
+    MINVALUE 1
+;
+
+ALTER SEQUENCE public.shelf_pk
+    OWNER TO postgres;
+
+
 -- CREATE the USERS table
 CREATE TABLE public.users
 (
-    user_id serial NOT NULL,
+    user_id integer NOT NULL DEFAULT nextval('users_pk'::regclass),
     fb_user_id text ,
     first_name text ,
     last_name text,
@@ -18,7 +40,7 @@ ALTER TABLE public.users
 -- CREATE the SHELF table
 CREATE TABLE public.shelf
 (
-    shelf_id serial NOT NULL,
+    shelf_id integer NOT NULL DEFAULT nextval('shelf_pk'::regclass),
     user_id integer,
     name text,
     summary text,
@@ -34,7 +56,7 @@ ALTER TABLE public.shelf
 -- CREATE the MOVIE table
 CREATE TABLE public.movie
 (
-    "imdbID" integer,
+    "imdbID" text,
     title text,
     poster_url text,
     year integer,
@@ -50,7 +72,7 @@ ALTER TABLE public.movie
 CREATE TABLE public.shelf_movie
 (
     shelf_id integer,
-    movie_id integer,
+    movie_id text,
     create_date timestamp,
     PRIMARY KEY (shelf_id, movie_id),
     FOREIGN KEY (shelf_id)
