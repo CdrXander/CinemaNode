@@ -1,95 +1,11 @@
-
-<!-- <script type="text/javascript">
-	$(function() {
-		var _center   = {width:600,height:400,marginLeft:0,	marginTop:0,  marginRight:0};
-		var _left 	  = {width:300,height:200,marginLeft:0,	marginTop:150,marginRight:-150};
-		var _right 	  = {width:300,height:200,marginLeft:-150,marginTop:150,marginRight:0};
-		var _outLeft  = {width:150,height:100,marginLeft:150, marginTop:200,marginRight:-200};
-		var _outRight = {width:150,height:100,marginLeft:-200,marginTop: 200,marginRight:50};
-		$('#carousel').caroufredsel({
-			width: 900,
-			height: 400,
-			align:false,
-			items: {
-				visible:3,
-				width: 100
-			},
-			scroll: {
-				items: 1,
-				duration: 400,
-				onBefore: function(data) {
-					data.items.old.eq(0).animate(_outLeft);
-					data.items.visible.eq(0).animate(_left);
-					data.items.visible.eq(1).animate(_center);
-					data.items.visible.eq(2).animate(_right).css({ zIndex: 1 });
-					data.items.visible.eq(2).next().css(_outRight).css({ zIndex: 0 });
-				
-					setTimeout(function() {
-						data.items.old.eq( 0 ).css({ zIndex: 1 });
-						data.items.visible.eq( 0 ).css({ zIndex: 2 });
-						data.items.visible.eq( 1 ).css({ zIndex: 3 });
-						data.items.visible.eq( 2 ).css({ zIndex: 2 });
-					}, 200);
-				}
-			}
-		});
-		$('#carousel').children().eq(0).css(_left).css({zIndex:2});
-		$('#carousel').children().eq(1).css(_center).css({zIndex:3});
-		$('#carousel').children().eq(2).css(_right).css({zIndex:2});
-		$('#carousel').children().eq(3).css(_outRight).css({zIndex:1});
-	});
-</script> -->
-
 <h1>My Shelves</h1>
 
-
-
 <section class="shelf-container">
-	<!-- Films to See -->
-	<div class="shelf-border">
-		<h3>Films to see</h3>
-		<movie-display movies="watchMovies"></movie-display>
-	</div>
 
-	<!-- Films Owned -->
-	<div class="shelf-border">
-		<h3>Films I own</h3>
-		<movie-display movies="ownedMovies"></movie-display>
+
+	<div class="shelf-border" ng-repeat="shelf in shelves">
+		<h3> {{shelf.name}} </h3>
+		<p> {{shelf.summary}} </p>
+		<movie-display movies="shelf.movies"></movie-display>
 	</div>
 </section>
-
-
-
-<!-- Carousel Implementation -->
-<!-- <section id="shelves" class="carousel slide shelf-container" data-ride="carousel" data-interval="false">
-
-	<ol class="carousel-indicators">
-	    <li data-target="#shelves" data-slide-to="0" class="active"></li>
-	    <li data-target="#shelves" data-slide-to="1"></li>
-	    <li data-target="#shelves" data-slide-to="2"></li>
-  	</ol>
-
-	<div class="carousel-inner" role="listbox">
-		<div class="item active shelf-border">
-			<h3>Films to See</h3>
-			<movie-display movies="watchMovies"></movie-display>
-		</div>
-		<div class="item shelf-border">
-			<h3>Owned Films</h3>
-			<movie-display movies="ownedMovies"></movie-display>
-		</div>
-		<div class="item shelf-border">
-			<h3>Seen Films</h3>
-			<movie-display movies="seenMovies"></movie-display>
-		</div>
-
-		<a class="left carousel-control" href="#shelves" role="button" data-slide="prev">
-			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-			<span class="sr-only">Previous</span>
-		</a>
-		<a class="right carousel-control" href="#shelves" role="button" data-slide="next">
-			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-			<span class="sr-only">Next</span>
-		</a>
-	</div>
-</section> -->

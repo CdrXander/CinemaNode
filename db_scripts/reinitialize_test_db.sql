@@ -70,7 +70,7 @@ CREATE TABLE public.movie
     poster_url text,
     year integer,
     rating text,
-    PRIMARY KEY ("imdbID")
+    PRIMARY KEY (movie_id)
 );
 ALTER TABLE public.movie
     OWNER to postgres;
@@ -89,7 +89,7 @@ CREATE TABLE public.shelf_movie
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
     FOREIGN KEY (movie_id)
-        REFERENCES public.movie ("imdbID") MATCH SIMPLE
+        REFERENCES public.movie (movie_id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );

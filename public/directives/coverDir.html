@@ -13,6 +13,10 @@
 			</div>
 		</a>
 		<p> Year: {{movie.Year}}</p>
+
+		<select ng-model="shelfAddSelect" ng-options="shelf.name for shelf in shelfList">
+		</select>
+
 		<!-- <button ng-if="!!movie.own" ng-click="addMovieToOwned(movie)" class="col-in">Owned</button> -->
 		<!-- <button ng-if="!!!movie.own" ng-click="addMovieToOwned(movie)" class="col-out">Own?</button> -->
 		
