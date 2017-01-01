@@ -13,5 +13,4 @@ angular.module('cinemaNode').controller('searchCtrl', function($scope, omdbServi
 			$scope.searchTitle = '';
 		})
 	}
-
 });

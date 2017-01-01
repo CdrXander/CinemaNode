@@ -85,7 +85,7 @@ h3 {
 	text-transform: uppercase;
 }
 
-h1{
+h1 {
 	font-family: 'Arvo', serif;
 	color:white;
 	text-transform:uppercase;
@@ -94,6 +94,10 @@ h1{
 	overflow:visible;
 }
 
+
+select {
+	color:black;
+}
 
 /*CLASSES*/
 
@@ -254,6 +258,7 @@ h1{
 .col-out {
 	background-color:red;
 }
+
 
 
 @media (max-width:600px) {

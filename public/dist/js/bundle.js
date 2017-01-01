@@ -26,69 +26,6 @@ angular.module('cinemaNode', ['ui.router']).config(function ($stateProvider, $ur
 		controller: 'detailCtrl'
 	});
 }).run();
-'use strict';
-
-angular.module('cinemaNode').controller('detailCtrl', function ($scope) {
-
-	$scope.pageNotWorking = "Details Page is Working";
-});
-'use strict';
-
-angular.module('cinemaNode').controller('homeCtrl', function ($scope) {
-
-	$scope.pageNotWorking = "Home Page is Working!";
-});
-'use strict';
-
-angular.module('cinemaNode').controller('searchCtrl', function ($scope, omdbService, apiService) {
-
-	var user_id = 1;
-
-	apiService.getUserShelfList(user_id).then(function (shelfList) {
-		$scope.userShelfList = shelfList;
-	});
-
-	$scope.searchForMovies = function () {
-		omdbService.searchForMovies($scope.searchTitle).then(function (serviceData) {
-			$scope.movies = serviceData;
-			console.log($scope.movies);
-			$scope.searchTitle = '';
-		});
-	};
-});
-'use strict';
-
-angular.module('cinemaNode').controller('shelvesCtrl', function ($scope, apiService) {
-	var user_id = 1;
-
-	// $scope.loadDummyMovieData = function() {
-	// 	$scope.ownedMovies = [];
-	// 	$scope.watchMovies = [];
-	// 	$scope.seenMovies  = [];
-
-	// 	var savedMovies = dummyDataService.getDummyData();
-	// 	for (let movie of savedMovies) {
-	// 		if (movie.own === true) {
-	// 			$scope.ownedMovies.push(movie);
-	// 		}
-	// 		if (movie.watch === true) {
-	// 			$scope.watchMovies.push(movie);
-	// 		}
-	// 		if (movie.seen === true) {
-	// 			$scope.seenMovies.push(movie);
-	// 		}
-	// 	}
-	// }
-
-	$scope.loadMovieData = function () {
-		apiService.getUserMovies(user_id).then(function (serviceData) {
-			$scope.shelves = serviceData;
-		});
-	};
-
-	// $scope.loadDummyMovieData();
-	$scope.loadMovieData();
-});
 "use strict";
 
 angular.module("cinemaNode").service("apiService", function ($http, $q) {
@@ -112,6 +49,20 @@ angular.module("cinemaNode").service("apiService", function ($http, $q) {
 		$http.get(url).success(function (response) {
 			deferred.resolve(response);
 		});
+		return deferred.promise;
+	};
+
+	//CREATE record in shelf_movie (no need for user id, as is tied to shelf)
+	this.addMovieToShelf = function (movie, shelf_id) {
+
+		var data = {
+			'movie': movie,
+			'shelf_id': shelf_id
+		};
+
+		var deferred = $q.defer();
+		var url = "http://localhost:" + port + "/movies/addtoshelf/";
+		$http.post(url, data).success(function (response) {});
 		return deferred.promise;
 	};
 });
@@ -289,7 +240,78 @@ angular.module('cinemaNode').service('omdbService', function ($http, $q) {
 });
 'use strict';
 
+angular.module('cinemaNode').controller('detailCtrl', function ($scope) {
+
+	$scope.pageNotWorking = "Details Page is Working";
+});
+'use strict';
+
+angular.module('cinemaNode').controller('homeCtrl', function ($scope) {
+
+	$scope.pageNotWorking = "Home Page is Working!";
+});
+'use strict';
+
+angular.module('cinemaNode').controller('searchCtrl', function ($scope, omdbService, apiService) {
+
+	var user_id = 1;
+
+	apiService.getUserShelfList(user_id).then(function (shelfList) {
+		$scope.userShelfList = shelfList;
+	});
+
+	$scope.searchForMovies = function () {
+		omdbService.searchForMovies($scope.searchTitle).then(function (serviceData) {
+			$scope.movies = serviceData;
+			console.log($scope.movies);
+			$scope.searchTitle = '';
+		});
+	};
+});
+'use strict';
+
+angular.module('cinemaNode').controller('shelvesCtrl', function ($scope, apiService) {
+	var user_id = 1;
+
+	// $scope.loadDummyMovieData = function() {
+	// 	$scope.ownedMovies = [];
+	// 	$scope.watchMovies = [];
+	// 	$scope.seenMovies  = [];
+
+	// 	var savedMovies = dummyDataService.getDummyData();
+	// 	for (let movie of savedMovies) {
+	// 		if (movie.own === true) {
+	// 			$scope.ownedMovies.push(movie);
+	// 		}
+	// 		if (movie.watch === true) {
+	// 			$scope.watchMovies.push(movie);
+	// 		}
+	// 		if (movie.seen === true) {
+	// 			$scope.seenMovies.push(movie);
+	// 		}
+	// 	}
+	// }
+
+	$scope.loadMovieData = function () {
+		apiService.getUserMovies(user_id).then(function (serviceData) {
+			$scope.shelves = serviceData;
+		});
+	};
+
+	// $scope.loadDummyMovieData();
+	$scope.loadMovieData();
+});
+'use strict';
+
 angular.module('cinemaNode').directive('movieDisplay', function () {
+
+	var coverController = ['$scope', 'apiService', function ($scope, apiService) {
+		$scope.addMovieToShelf = function (movie, shelf_id) {
+			apiService.addMovieToShelf(movie, shelf_id).then(function (response) {
+				console.log("movie saved");
+			});
+		};
+	}];
 
 	return {
 		restrict: "E",
@@ -297,7 +319,8 @@ angular.module('cinemaNode').directive('movieDisplay', function () {
 		scope: {
 			movies: '=',
 			shelfList: '='
-		}
+		},
+		controller: coverController
 	};
 });
 //# sourceMappingURL=bundle.js.map

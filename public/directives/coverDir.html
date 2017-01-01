@@ -14,8 +14,9 @@
 		</a>
 		<p> Year: {{movie.Year}}</p>
 
-		<select ng-model="shelfAddSelect" ng-options="shelf.name for shelf in shelfList">
+		<select ng-model="selectedShelf" ng-options="shelf.name for shelf in shelfList">
 		</select>
+		<button ng-click="addMovieToShelf(movie,selectedShelf.shelf_id)">Add to List</button>
 
 		<!-- <button ng-if="!!movie.own" ng-click="addMovieToOwned(movie)" class="col-in">Owned</button> -->
 		<!-- <button ng-if="!!!movie.own" ng-click="addMovieToOwned(movie)" class="col-out">Own?</button> -->
