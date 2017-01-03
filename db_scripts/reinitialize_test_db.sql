@@ -36,6 +36,7 @@ CREATE TABLE public.users
     fb_user_id text ,
     first_name text ,
     last_name text,
+    photo_url text,
     join_date date,
     own_shelf_id integer,
     seen_shelf_id integer,

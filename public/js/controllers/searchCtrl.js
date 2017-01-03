@@ -2,10 +2,6 @@ angular.module('cinemaNode').controller('searchCtrl', function($scope, omdbServi
 
 	var user_id=1;
 
-	apiService.getUserShelfList(user_id).then(shelfList => {
-		$scope.userShelfList = shelfList;
-	});
-
 	$scope.searchForMovies = function() {
 		omdbService.searchForMovies($scope.searchTitle).then(serviceData => {
 			$scope.movies = serviceData;

@@ -181,11 +181,20 @@ select {
 	background-color: black;
 	width: 150px;
 	height: 190px;
-	border:1px solid blue;
+	border:1px solid $blu-ray-blue;
 	border-radius: 5px;
 	overflow:hidden;
-
 	position: relative;
+}
+
+.cover-lrg {
+	display: inline-flex;
+	justify-content: center;
+	background-color: black;
+	overflow:hidden;
+	position: relative;
+	border: 5px solid $blu-ray-blue;
+	border-radius:5px;
 }
 
 .cover-img {
@@ -200,8 +209,6 @@ select {
 	height:auto;
 	max-width: 360px;
 	max-height: 450px;
-	border: 5px solid $blu-ray-blue;
-	border-radius:5px;
 }
 
 .transparent-shelf-border{

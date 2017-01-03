@@ -1,4 +1,5 @@
 var app = require('./../server.js')
+var config 	= require ('./../config.js');
 
 module.exports = {
 	getShelfListForUser:getShelfListForUser,
@@ -8,7 +9,7 @@ module.exports = {
 
 function getShelfListForUser(req,res,next) {
 	var db = app.get('db');
-	db.get_shelf_list_for_user([req.params.uid],function(err,shelfList) {
+	db.get_shelf_list_for_user([req.session.currentUser.user_id],function(err,shelfList) {
 		if(!err) {
 			res.status(200).send(shelfList);
 		} else {
@@ -32,8 +33,11 @@ function getAllShelves(req,res,next) {
 function getShelvesForUser(req,res,next) {
 	//New tactic: Get ALL the data, and then build the object
 	var db = app.get('db');
-	db.get_shelves_for_user([req.params.uid], function(err, shelves) {
+	console.log("getShelvesForUser => currentUser.user_id");
+	console.log(req.session.currentUser.user_id);
+	db.get_shelves_for_user([req.session.currentUser.user_id], function(err, shelves) {
 		if(!err) {
+			// console.log(shelves);
 			var sortedShelves = [];
 			var curShelfId = 0;
 			var shelvesIndex = -1;

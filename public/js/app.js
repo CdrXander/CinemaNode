@@ -29,4 +29,6 @@ angular.module('cinemaNode', ['ui.router']).config(function($stateProvider, $url
 			controller: 'detailCtrl'
 		});
 
+		$urlRouterProvider.otherwise('/');
+
 }).run();

@@ -1,4 +1,30 @@
 <h1>Movie Details</h1>
 
+<section class="shelf-container">
+	<div class="center transparent-shelf-border">
+		<div class="cover-lrg hover-effect">
+			<img class="cover-img-lrg" ng-src="{{movie.Poster}}">
+			<div class="title-overlay">
+				<h2>{{movie.Title}}</h2>
+			</div>
+		</div>
+	</div>
 
-{{pageNotWorking}}
+	<div class="shelf-border">
+		<h2>{{movie.Title}}</h2>
+		<hr>
+		<p>Year: {{movie.Year}}</p>
+		<p>Rating: {{movie.Rated}}</p>
+		<p>Plot Summary: {{movie.Plot}}</p>
+		<br>
+		<h4>Reviews</h4>
+		<hr>
+		<p>Tomato Meter: {{movie.tomatoMeter}}%</p>
+		<p>IMDb Rating: {{movie.imdbRating}}/10</p>
+		<hr>
+		<select ng-model="selectedShelf" ng-options="shelf.name for shelf in shelfList">
+		</select>
+		<button ng-click="addMovieToShelf(movie,selectedShelf.shelf_id)">Add to List</button>
+
+	</div>
+</section>

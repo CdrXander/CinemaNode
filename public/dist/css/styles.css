@@ -48,9 +48,9 @@
     opacity: 1; }
   .hover-effect:hover h2 {
     opacity: 1;
-    -ms-transform: translatey(0);
-    -webkit-transform: translatey(0);
-    transform: translatey(0); }
+    -ms-transform: translatey(50%);
+    -webkit-transform: translatey(50%);
+    transform: translatey(50%); }
 
 .center {
   display: flex;
@@ -185,10 +185,19 @@ select {
   background-color: black;
   width: 150px;
   height: 190px;
-  border: 1px solid blue;
+  border: 1px solid #0060AA;
   border-radius: 5px;
   overflow: hidden;
   position: relative; }
+
+.cover-lrg {
+  display: inline-flex;
+  justify-content: center;
+  background-color: black;
+  overflow: hidden;
+  position: relative;
+  border: 5px solid #0060AA;
+  border-radius: 5px; }
 
 .cover-img {
   position: relative;
@@ -200,9 +209,7 @@ select {
   width: 100%;
   height: auto;
   max-width: 360px;
-  max-height: 450px;
-  border: 5px solid #0060AA;
-  border-radius: 5px; }
+  max-height: 450px; }
 
 .transparent-shelf-border {
   display: inline-block;
