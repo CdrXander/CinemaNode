@@ -253,6 +253,12 @@ select {
 .col-out {
   background-color: red; }
 
+.user-tag {
+  background-color: #0060AA;
+  width: 10vw;
+  border-radius: 5px;
+  color: white; }
+
 @media (max-width: 600px) {
   .shelf-container {
     display: block; }

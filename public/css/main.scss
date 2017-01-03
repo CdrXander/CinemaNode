@@ -3,6 +3,12 @@
 
 $blu-ray-blue: #0060AA;
 
+$theme_red_pale : #B26966;
+$theme_yellow	: #FDDFA1;
+$theme_red 		: #FF3630;
+$theme_blue		: #0060AA;
+$theme_blue_pale: #5C8DB2;
+
 * {
 	box-sizing: border-box;
 	overflow: auto;
@@ -266,6 +272,13 @@ select {
 	background-color:red;
 }
 
+
+.user-tag {
+	background-color: $theme_blue;
+	width: 10vw;
+	border-radius:5px;
+	color:white;
+}
 
 
 @media (max-width:600px) {

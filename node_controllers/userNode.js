@@ -4,14 +4,15 @@ var defaults = require('./../defaults.js');
 var sd 		 = defaults.shelf;
 
 module.exports = {
-	loginUserFB:loginUserFB
+	loginUserFB:loginUserFB,
+	getCurrentUser:getCurrentUser
 }
 
+//User creation is a pain...
 
 function loginUserFB(req,res,next) {
 	
 	var db = app.get('db');
-
 
 	db.get_user_by_fb_id([req.user.id], function(err, user) {
 		if(!err) {
@@ -40,7 +41,7 @@ function createUser(fbuser,req, res) {
 		fb_user_id: fbuser.id,
 		first_name: fname,
 		last_name: lname,
-		photo_url: "http://graph.facebook.com/" + fbuser.id,
+		photo_url: fbuser.photos[0].value,
 		join_date: new Date()
 	}, 
 	function(err, user) {
@@ -78,4 +79,15 @@ function createBasicShelf(req, user, name, summary,shelf_col, send, res) {
 			}
 		})
 	})
+}
+
+
+//GET current user
+function getCurrentUser(req,res,next) {
+
+	if(!!req.session.currentUser) {
+		res.status(200).send(req.session.currentUser);
+	} else {
+		res.status(200).send();
+	}
 }

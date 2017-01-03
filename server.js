@@ -43,7 +43,8 @@ app.use(passport.session());
 passport.use('facebook', new fbStrategy({
 	clientID:config.facebook.appID,
 	clientSecret:config.facebook.appSecret,
-	callbackURL: config.baseURL + config.port + "/auth/facebook/callback"
+	callbackURL: config.baseURL + config.port + "/auth/facebook/callback",
+	profileFields: ['id', 'displayName', 'photos']
 }, function(token, refreshToken, profile, done) {
 	return done(null,profile);
 }));
@@ -61,10 +62,19 @@ passport.deserializeUser(function(user, done) {
 
 app.get("/auth/facebook", passport.authenticate("facebook"));
 app.get("/auth/facebook/callback", passport.authenticate("facebook"),userNode.loginUserFB);
+app.get("/auth/logout", function(req,res,next) {
+	req.logout();
+	req.session.currentUser = null;
+	res.redirect('/');
+})
+
+
+app.get('/user/current', userNode.getCurrentUser);
 
 app.get('/shelves/all', shelfNode.getAllShelves);
 app.get('/shelves/', shelfNode.getShelvesForUser);
 app.get('/shelves/list/', shelfNode.getShelfListForUser);
+
 app.post('/movies/addtoshelf', movieNode.addMovieToShelf);
 app.get('/movies/movie/:mid', movieNode.getMovieById);
 

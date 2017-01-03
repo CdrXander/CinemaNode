@@ -75,6 +75,20 @@ angular.module('cinemaNode').controller('homeCtrl', function ($scope) {
 });
 'use strict';
 
+angular.module('cinemaNode').controller('mainCtrl', function ($scope, apiService) {
+
+	$scope.pageNotWorking = "Main Controller Working";
+
+	apiService.getCurrentUser().then(function (currentUser) {
+		if (!!currentUser) {
+			$scope.currentUser = currentUser;
+		} else {
+			$scope.currentUser = false;
+		}
+	});
+});
+'use strict';
+
 angular.module('cinemaNode').controller('searchCtrl', function ($scope, omdbService, apiService) {
 
 	var user_id = 1;
@@ -106,6 +120,15 @@ angular.module("cinemaNode").service("apiService", function ($http, $q) {
 
 	var port = 3000;
 	var baseURL = "http://localhost:" + port;
+
+	this.getCurrentUser = function () {
+		var deferred = $q.defer();
+		var url = baseURL + "/user/current";
+		$http.get(url).success(function (response) {
+			deferred.resolve(response);
+		});
+		return deferred.promise;
+	};
 
 	//GET shelves/movies for a user
 	this.getUserMovies = function () {

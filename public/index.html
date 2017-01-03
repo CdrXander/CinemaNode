@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="dist/css/styles.css">
 </head>
-<body>
+<body ng-controller="mainCtrl">
 
 	<header>
 		<span class="title">
@@ -20,9 +20,16 @@
 				<li><a ui-sref='search'	>Search</a></li>
 				<li><a ui-sref='shelves'>Shelves</a></li>
 				<li><a ui-sref='home'	>Home</a></li>
-				<li><a href="/auth/facebook">Login</a></li>
+
+				<li ng-if="!!!currentUser"><a href="/auth/facebook">Login</a></li>
+				<li ng-if="!!currentUser"><a href="/auth/logout">Logout</a></li>
 			</ul>
+
 		</nav>
+		<span class="user-tag">
+			{{currentUser.first_name + " " + currentUser.last_name}}
+			<img ng-src="{{currentUser.photo_url}}">
+		</span>
 	</header>
 	<main ui-view></main>
 

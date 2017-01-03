@@ -4,6 +4,17 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 	var baseURL = "http://localhost:" + port;
 
 
+
+	this.getCurrentUser = () => {
+		var deferred = $q.defer();
+		var url = baseURL + "/user/current";
+		$http.get(url)
+		.success(response => {
+			deferred.resolve(response);
+		})
+		return deferred.promise;
+	}
+
 	//GET shelves/movies for a user
 	this.getUserMovies = () => {
 		var deferred = $q.defer();
