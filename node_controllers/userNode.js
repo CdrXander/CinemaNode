@@ -17,7 +17,7 @@ function loginUserFB(req,res,next) {
 	db.get_user_by_fb_id([req.user.id], function(err, user) {
 		if(!err) {
 			if(user.length <1) {
-				req.session.currentUser = createUser(req.user, req, res);
+				createUser(req.user, req, res);
 
 			} else {
 				req.session.currentUser = user[0];

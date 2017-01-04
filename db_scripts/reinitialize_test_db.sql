@@ -1,4 +1,4 @@
--- DELETE DB
+-- DELETE DATA BASE =   =   =   =   =   =   =   =   =   =   =
 DROP TABLE IF EXISTS shelf_movie;
 DROP TABLE IF EXISTS movie;
 DROP TABLE IF EXISTS shelf;
@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS shelf_pk;
 DROP SEQUENCE IF EXISTS users_pk;
 
--- CREATE DB
+-- CREATE DATABASE  =   =   =   =   =   =   =   =   =   =   =
 
 -- CREATE SEQUENCEs for the users and shelf primary keys
 CREATE SEQUENCE public.users_pk
@@ -34,6 +34,9 @@ CREATE TABLE public.users
 (
     user_id integer NOT NULL DEFAULT nextval('users_pk'::regclass),
     fb_user_id text ,
+    username text,
+    password text,
+    pw_salt text,
     first_name text ,
     last_name text,
     photo_url text,
@@ -97,7 +100,7 @@ CREATE TABLE public.shelf_movie
 ALTER TABLE public.shelf_movie
     OWNER to postgres;
 
--- INSERT TEST DATA
+-- INSERT TEST DATABASE=    =   =   =   =   =   =   =   =   =   =   =   =   
 
 -- Create Test Users 
 INSERT INTO public.users(

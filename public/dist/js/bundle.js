@@ -8,28 +8,52 @@
 */
 angular.module('cinemaNode', ['ui.router']).config(function ($stateProvider, $urlRouterProvider) {
 
+	var authCheck = function authCheck($q, $timeout, $http, $state, $rootScope) {
+		var deferred = $q.defer();
+		$http.get('/loggedin').success(function (user) {
+			if (user !== '0') {
+				deferred.resolve();
+			} else {
+				$rootScope.message = 'You need to login';
+				deferred.reject();
+				$state.go('login');
+			}
+		});
+		return deferred.promise;
+	};
+
 	$stateProvider.state('home', {
 		url: '/',
 		templateUrl: './views/home.html',
-		controller: 'homeCtrl'
+		controller: 'homeCtrl',
+		resolve: {
+			loggedin: authCheck
+		}
 	}).state('shelves', {
 		url: '/shelves',
 		templateUrl: './views/shelves.html',
-		controller: 'shelvesCtrl'
+		controller: 'shelvesCtrl',
+		resolve: {
+			loggedin: authCheck
+		}
+
 	}).state('search', {
 		url: '/search',
 		templateUrl: './views/search.html',
-		controller: 'searchCtrl'
+		controller: 'searchCtrl',
+		resolve: {
+			loggedin: authCheck
+		}
 	}).state('details', {
 		url: '/details/:id',
 		templateUrl: './views/detail.html',
-		controller: 'detailCtrl'
+		controller: 'detailCtrl',
+		resolve: {
+			loggedin: authCheck
+		}
 	}).state('login', {
 		url: '/login',
 		templateUrl: './views/login.html'
-	}).state('register', {
-		url: '/register',
-		templateUrl: './views/register.html'
 	});
 
 	$urlRouterProvider.otherwise('/');

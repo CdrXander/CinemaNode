@@ -58,6 +58,16 @@ passport.deserializeUser(function(user, done) {
 })
 
 
+//CUSTOM MIDDLEWARE
+var authcheck = function(req,res,next) {
+	if(!req.isAuthenticated()) {
+		res.status(401).send(401);
+	} else {
+		next();
+	}
+}
+
+
 //END POINTS
 
 app.get("/auth/facebook", passport.authenticate("facebook"));
@@ -67,16 +77,19 @@ app.get("/auth/logout", function(req,res,next) {
 	req.session.currentUser = null;
 	res.redirect('/');
 })
+app.get('/loggedin', function (req, res) {
+	res.send(req.isAuthenticated() ? req.session.currentUser : '0');
+})
 
 
 app.get('/user/current', userNode.getCurrentUser);
 
-app.get('/shelves/all', shelfNode.getAllShelves);
-app.get('/shelves/', shelfNode.getShelvesForUser);
-app.get('/shelves/list/', shelfNode.getShelfListForUser);
+app.get('/shelves/all', authcheck, shelfNode.getAllShelves);
+app.get('/shelves/',authcheck, shelfNode.getShelvesForUser);
+app.get('/shelves/list/',authcheck, shelfNode.getShelfListForUser);
 
-app.post('/movies/addtoshelf', movieNode.addMovieToShelf);
-app.get('/movies/movie/:mid', movieNode.getMovieById);
+app.post('/movies/addtoshelf',authcheck, movieNode.addMovieToShelf);
+app.get('/movies/movie/:mid',authcheck, movieNode.getMovieById);
 
 app.listen(port, function() {
   console.log("Started server on port", port, (new Date()).toTimeString());

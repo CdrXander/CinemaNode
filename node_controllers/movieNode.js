@@ -10,7 +10,6 @@ module.exports = {
 function addMovieToShelf(req,res,next) {
 	var db = app.get('db');
 
-	console.log(req.body);	
 	//Check if movie is already in database
 	db.get_movie_by_imdbid([req.body.movie.movie_id], function(err,movie) {
 		if(!err) {
@@ -62,7 +61,6 @@ function addMovieToDatabase(movie) {
 	var db = app.get('db');
 	db.add_movie([movie.imdbID, movie.Title, movie.Poster, movie.Year], function(err,result) {
 		if(!err) {
-			console.log('MOVIE SAVED');
 		}
 	});
 }

@@ -21,7 +21,7 @@
 				<li><a ui-sref='shelves'>Shelves</a></li>
 				<li><a ui-sref='home'	>Home</a></li>
 
-				<li ng-if="!!!currentUser"><a href="/auth/facebook">Login</a></li>
+				<li ng-if="!!!currentUser"><a ui-sref="login">Login</a></li>
 				<li ng-if="!!currentUser"><a href="/auth/logout">Logout</a></li>
 			</ul>
 
@@ -40,6 +40,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/6fc72f7583.js"></script>
 	<!-- Custom Scripts -->
 	<script src="dist/js/bundle.js"></script>
 </body>
