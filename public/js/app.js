@@ -27,6 +27,14 @@ angular.module('cinemaNode', ['ui.router']).config(function($stateProvider, $url
 			url: '/details/:id',
 			templateUrl: './views/detail.html',
 			controller: 'detailCtrl'
+		})
+		.state('login', {
+			url:'/login',
+			templateUrl:'./views/login.html'
+		})
+		.state('register', {
+			url:'/register',
+			templateUrl:'./views/register.html'
 		});
 
 		$urlRouterProvider.otherwise('/');
