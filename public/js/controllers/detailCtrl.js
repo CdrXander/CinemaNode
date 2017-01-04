@@ -3,6 +3,7 @@ angular.module('cinemaNode').controller(
 
 
 	var fullMovie = {};
+
 	omdbService.getMovieDetails($stateParams.id).then(omdbData => {
 		fullMovie = omdbData;
 		apiService.getMovieById($stateParams.id).then(CNData => {
@@ -13,6 +14,10 @@ angular.module('cinemaNode').controller(
 		})
 
 	});
+
+	apiService.getReviewsForMovie($stateParams.id).then(reviews => {
+		$scope.reviews = reviews;
+	})
 
 	apiService.getUserShelfList().then(shelfList => {
 		$scope.shelfList = shelfList;

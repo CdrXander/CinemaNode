@@ -1,5 +1,6 @@
 -- DELETE DATA BASE =   =   =   =   =   =   =   =   =   =   =
 DROP TABLE IF EXISTS shelf_movie;
+DROP TABLE IF EXISTS review;
 DROP TABLE IF EXISTS movie;
 DROP TABLE IF EXISTS shelf;
 DROP TABLE IF EXISTS users;
@@ -79,6 +80,21 @@ CREATE TABLE public.movie
 ALTER TABLE public.movie
     OWNER to postgres;
 
+-- CREATE the REVIEW table
+CREATE TABLE public.review
+(
+    user_id integer,
+    movie_id text,
+    review_text text,
+    user_rating integer,
+    PRIMARY KEY (user_id, movie_id),
+    FOREIGN KEY (user_id)
+        REFERENCES public.users (user_id) MATCH SIMPLE,
+    FOREIGN KEY (movie_id)
+        REFERENCES public.movie (movie_id) MATCH SIMPLE
+);
+ALTER TABLE public.review
+    OWNER to postgres;
 
 
 -- CREATE the SHELF_MOVIE relational table
@@ -227,3 +243,10 @@ INSERT INTO public.movie VALUES ('tt3748528','Rogue One: A Star Wars Story','htt
 INSERT INTO public.shelf_movie VALUES (2, 'tt3748528');
 INSERT INTO public.shelf_movie VALUES (3, 'tt3748528');
 INSERT INTO public.shelf_movie VALUES (99,'tt3748528');
+
+
+-- ADD reviews to a few movies
+INSERT INTO public.review VALUES (1 , 'tt3748528', 'A smashing film', 5);
+INSERT INTO public.review VALUES (99, 'tt3748528', 'Boo! I hate fun!',1);
+INSERT INTO public.review VALUES (1 , 'tt0372784', 'Batman begins is the best film ever made!', 5);
+INSERT INTO public.review VALUES (99, 'tt0372784', 'Okay, I have to agree with Tom on this one.', 5);

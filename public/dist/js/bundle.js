@@ -14,7 +14,6 @@ angular.module('cinemaNode', ['ui.router']).config(function ($stateProvider, $ur
 			if (user !== '0') {
 				deferred.resolve();
 			} else {
-				$rootScope.message = 'You need to login';
 				deferred.reject();
 				$state.go('login');
 			}
@@ -77,6 +76,7 @@ angular.module('cinemaNode').controller('coverCtrl', function ($scope, apiServic
 angular.module('cinemaNode').controller('detailCtrl', function ($scope, $stateParams, omdbService, apiService) {
 
 	var fullMovie = {};
+
 	omdbService.getMovieDetails($stateParams.id).then(function (omdbData) {
 		fullMovie = omdbData;
 		apiService.getMovieById($stateParams.id).then(function (CNData) {
@@ -85,6 +85,10 @@ angular.module('cinemaNode').controller('detailCtrl', function ($scope, $statePa
 			}
 			$scope.movie = fullMovie;
 		});
+	});
+
+	apiService.getReviewsForMovie($stateParams.id).then(function (reviews) {
+		$scope.reviews = reviews;
 	});
 
 	apiService.getUserShelfList().then(function (shelfList) {
@@ -151,6 +155,9 @@ angular.module("cinemaNode").service("apiService", function ($http, $q) {
 	var port = 3000;
 	var baseURL = "http://localhost:" + port;
 
+	//AUTHENTICATION	=	=	=	=	=	=	=	=	=	=	=
+
+	//USERS =	=	=	=	=	=	=	=	=	=	=	=	=	=
 	this.getCurrentUser = function () {
 		var deferred = $q.defer();
 		var url = baseURL + "/user/current";
@@ -159,6 +166,8 @@ angular.module("cinemaNode").service("apiService", function ($http, $q) {
 		});
 		return deferred.promise;
 	};
+
+	//SHELVES 	=	=	=	=	=	=	=	=	=	=	=	=	=
 
 	//GET shelves/movies for a user
 	this.getUserMovies = function () {
@@ -179,6 +188,8 @@ angular.module("cinemaNode").service("apiService", function ($http, $q) {
 		});
 		return deferred.promise;
 	};
+
+	//MOVIES 	=	=	=	=	=	=	=	=	=	=	=	=	=
 
 	//CREATE record in shelf_movie (no need for user id, as is tied to shelf)
 	this.addMovieToShelf = function (movie, shelf_id) {
@@ -203,6 +214,17 @@ angular.module("cinemaNode").service("apiService", function ($http, $q) {
 			} else {
 				deferred.resolve(null);
 			}
+		});
+		return deferred.promise;
+	};
+
+	//REVIEWS 	=	=	=	=	=	=	=	=	=	=	=	=	=
+
+	this.getReviewsForMovie = function (movie_id) {
+		var deferred = $q.defer();
+		var url = baseURL + "/review/" + movie_id;
+		$http.get(url).success(function (response) {
+			deferred.resolve(response);
 		});
 		return deferred.promise;
 	};

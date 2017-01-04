@@ -5,6 +5,9 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 
 
 
+//AUTHENTICATION	=	=	=	=	=	=	=	=	=	=	=
+
+//USERS =	=	=	=	=	=	=	=	=	=	=	=	=	=
 	this.getCurrentUser = () => {
 		var deferred = $q.defer();
 		var url = baseURL + "/user/current";
@@ -14,6 +17,8 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 		})
 		return deferred.promise;
 	}
+
+//SHELVES 	=	=	=	=	=	=	=	=	=	=	=	=	=
 
 	//GET shelves/movies for a user
 	this.getUserMovies = () => {
@@ -37,6 +42,7 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 		return deferred.promise;
 	}
 
+//MOVIES 	=	=	=	=	=	=	=	=	=	=	=	=	=
 
 	//CREATE record in shelf_movie (no need for user id, as is tied to shelf)
 	this.addMovieToShelf = (movie, shelf_id) => {
@@ -66,6 +72,18 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 				deferred.resolve(null);
 			}
 		})
+		return deferred.promise;
+	}
+
+
+//REVIEWS 	=	=	=	=	=	=	=	=	=	=	=	=	=
+
+	this.getReviewsForMovie = movie_id => {
+		var deferred = $q.defer();
+		var url = baseURL + "/review/" + movie_id;
+		$http.get(url).success(response => {
+			deferred.resolve(response);
+		});
 		return deferred.promise;
 	}
 

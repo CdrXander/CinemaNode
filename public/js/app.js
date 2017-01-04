@@ -12,7 +12,6 @@ angular.module('cinemaNode', ['ui.router']).config(function($stateProvider, $url
 			if(user !== '0') {
 				deferred.resolve();
 			} else {
-				$rootScope.message = 'You need to login';
 				deferred.reject();
 				$state.go('login');
 			}

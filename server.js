@@ -20,9 +20,11 @@ app.use(express.static(__dirname + '/public'));
 
 
 //Local File modules  AFTER app initialization
-var shelfNode = require('./node_controllers/shelfNode.js');
-var movieNode = require('./node_controllers/movieNode.js');
-var userNode  = require('./node_controllers/userNode.js');
+//This is because the nodes require the database to be initilaized first
+var shelfNode 	= require('./node_controllers/shelfNode.js');
+var movieNode 	= require('./node_controllers/movieNode.js');
+var userNode  	= require('./node_controllers/userNode.js');
+var reviewNode 	= require('./node_controllers/reviewNode.js');
 
 
 //Connect to DB
@@ -70,6 +72,7 @@ var authcheck = function(req,res,next) {
 
 //END POINTS
 
+//Authentication
 app.get("/auth/facebook", passport.authenticate("facebook"));
 app.get("/auth/facebook/callback", passport.authenticate("facebook"),userNode.loginUserFB);
 app.get("/auth/logout", function(req,res,next) {
@@ -81,15 +84,21 @@ app.get('/loggedin', function (req, res) {
 	res.send(req.isAuthenticated() ? req.session.currentUser : '0');
 })
 
-
+//Users
 app.get('/user/current', userNode.getCurrentUser);
 
+//Shelves
 app.get('/shelves/all', authcheck, shelfNode.getAllShelves);
 app.get('/shelves/',authcheck, shelfNode.getShelvesForUser);
 app.get('/shelves/list/',authcheck, shelfNode.getShelfListForUser);
 
+//Movies
 app.post('/movies/addtoshelf',authcheck, movieNode.addMovieToShelf);
 app.get('/movies/movie/:mid',authcheck, movieNode.getMovieById);
+
+//Reviews
+app.get('/review/:mid', reviewNode.getReviewsForMovie);
+app.post('/review/new', reviewNode.createReview);
 
 app.listen(port, function() {
   console.log("Started server on port", port, (new Date()).toTimeString());
