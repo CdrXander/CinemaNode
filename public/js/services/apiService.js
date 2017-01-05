@@ -80,10 +80,38 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 
 	this.getReviewsForMovie = movie_id => {
 		var deferred = $q.defer();
-		var url = baseURL + "/review/" + movie_id;
+		var url = baseURL + "/review/movie/" + movie_id;
 		$http.get(url).success(response => {
 			deferred.resolve(response);
 		});
+		return deferred.promise;
+	}
+
+	this.getReviewForUser = movie_id => {
+		var deferred = $q.defer();
+		var url = baseURL + "/review/user/" + movie_id;
+		$http.get(url).success(response => {
+			deferred.resolve(response);
+		});
+		return deferred.promise;
+	}
+
+	this.saveReview = (movie_id, reviewText, userRating) => {
+		var reviewData = {
+			movie_id:movie_id,
+			review_text:reviewText,
+			user_rating:userRating
+		}
+
+		var deferred = $q.defer();
+		var url = '${baseURL}/review/new';
+		$http.post(url, reviewData).success(response => {
+			if(response == "200") {
+				deferred.resolve(true);
+			} else {
+				deferred.resolve(false);
+			}
+		})
 		return deferred.promise;
 	}
 

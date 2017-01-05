@@ -11,7 +11,7 @@ function addMovieToShelf(req,res,next) {
 	var db = app.get('db');
 
 	//Check if movie is already in database
-	db.get_movie_by_imdbid([req.body.movie.movie_id], function(err,movie) {
+	db.get_movie_by_imdbid([req.body.movie.imdbID], function(err,movie) {
 		if(!err) {
 			if(movie.length < 1) {
 				addMovieToDatabase(req.body.movie);

@@ -87,6 +87,10 @@ angular.module('cinemaNode').controller('detailCtrl', function ($scope, $statePa
 		});
 	});
 
+	apiService.getReviewForUser($stateParams.id).then(function (review) {
+		$scope.userReview = review[0].review_text;
+	});
+
 	apiService.getReviewsForMovie($stateParams.id).then(function (reviews) {
 		$scope.reviews = reviews;
 	});
@@ -94,6 +98,12 @@ angular.module('cinemaNode').controller('detailCtrl', function ($scope, $statePa
 	apiService.getUserShelfList().then(function (shelfList) {
 		$scope.shelfList = shelfList;
 	});
+
+	$scope.saveReview = function () {
+		apiService.saveReview($scope.movie.imdbID, $scope.userReview, 5).then(function (response) {
+			$scope.reviewSaved = response;
+		});
+	};
 
 	$scope.addMovieToShelf = function (movie, shelf_id) {
 		apiService.addMovieToShelf(movie, shelf_id).then(function (response) {
@@ -222,9 +232,37 @@ angular.module("cinemaNode").service("apiService", function ($http, $q) {
 
 	this.getReviewsForMovie = function (movie_id) {
 		var deferred = $q.defer();
-		var url = baseURL + "/review/" + movie_id;
+		var url = baseURL + "/review/movie/" + movie_id;
 		$http.get(url).success(function (response) {
 			deferred.resolve(response);
+		});
+		return deferred.promise;
+	};
+
+	this.getReviewForUser = function (movie_id) {
+		var deferred = $q.defer();
+		var url = baseURL + "/review/user/" + movie_id;
+		$http.get(url).success(function (response) {
+			deferred.resolve(response);
+		});
+		return deferred.promise;
+	};
+
+	this.saveReview = function (movie_id, reviewText, userRating) {
+		var reviewData = {
+			movie_id: movie_id,
+			review_text: reviewText,
+			user_rating: userRating
+		};
+
+		var deferred = $q.defer();
+		var url = '${baseURL}/review/new';
+		$http.post(url, reviewData).success(function (response) {
+			if (response == "200") {
+				deferred.resolve(true);
+			} else {
+				deferred.resolve(false);
+			}
 		});
 		return deferred.promise;
 	};

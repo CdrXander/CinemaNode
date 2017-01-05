@@ -97,8 +97,10 @@ app.post('/movies/addtoshelf',authcheck, movieNode.addMovieToShelf);
 app.get('/movies/movie/:mid',authcheck, movieNode.getMovieById);
 
 //Reviews
-app.get('/review/:mid', reviewNode.getReviewsForMovie);
-app.post('/review/new', reviewNode.createReview);
+app.get('/review/movie/:mid', reviewNode.getReviewsForMovie);
+app.get('/review/user/:mid', authcheck, reviewNode.getReviewForUser);
+app.post('/review/new', authcheck, reviewNode.saveReview);
+
 
 app.listen(port, function() {
   console.log("Started server on port", port, (new Date()).toTimeString());

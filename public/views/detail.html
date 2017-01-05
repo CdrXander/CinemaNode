@@ -31,9 +31,9 @@
 				<img ng-src="{{currentUser.photo_url}}">
 				Your Review
 			</p><p>
-				<input type="text">
+				<textarea rows="6" cols="50" ng-model="userReview"></textarea>
 			</p>	
-			<button>Save Review</button>
+			<button ng-click="saveReview()">Save Review</button>
 			<button>Delete Review</button>
 		</div>
 
