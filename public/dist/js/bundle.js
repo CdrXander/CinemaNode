@@ -22,7 +22,7 @@ angular.module('cinemaNode', ['ui.router']).config(function ($stateProvider, $ur
 	};
 
 	$stateProvider.state('home', {
-		url: '/',
+		url: '/home',
 		templateUrl: './views/home.html',
 		controller: 'homeCtrl',
 		resolve: {
@@ -55,7 +55,7 @@ angular.module('cinemaNode', ['ui.router']).config(function ($stateProvider, $ur
 		templateUrl: './views/login.html'
 	});
 
-	$urlRouterProvider.otherwise('/');
+	$urlRouterProvider.otherwise('/shelves');
 }).run();
 'use strict';
 
@@ -152,10 +152,14 @@ angular.module('cinemaNode').controller('shelvesCtrl', function ($scope, apiServ
 	$scope.loadMovieData = function () {
 		apiService.getUserMovies().then(function (serviceData) {
 			$scope.shelves = serviceData;
+			$scope.currentShelf = $scope.shelves[0];
 		});
 	};
 
-	// $scope.loadDummyMovieData();
+	$scope.updateShelf = function (shelfIndex) {
+		$scope.currentShelf = $scope.shelves[shelfIndex];
+	};
+
 	$scope.loadMovieData();
 });
 "use strict";

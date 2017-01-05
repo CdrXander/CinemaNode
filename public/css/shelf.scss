@@ -1,0 +1,124 @@
+$blu-ray-blue: #0060AA;
+
+// Blu-ray Triad Scheme
+$theme_dark_blue : #09395D;
+$theme_red 		 : #B71712;
+$theme_blu_ray	 : #0060AA;
+$theme_gray		 : #808080;
+$theme_yellow 	 : #F2F60C;
+
+.shelf-container {
+	position: relative;
+	display: flex;
+	justify-content: space-around;
+}
+
+.container {
+	position: relative;
+	margin:0 auto;
+	display:flex;
+	justify-content:center;
+}
+
+.shelf-menu {
+	float:left;
+	padding:0;
+	background-color: $theme_blu_ray;
+	height:100%;
+	div {
+		padding: 5px;
+		padding-right:25px;
+		margin: 10px 0 10px 0;
+		border-radius: 5px 0 0 5px;;
+		font-size: 20px;
+		color:white;
+		
+	}
+	div.selected {
+		background-color:$theme_dark_blue;
+	}
+		div:hover {
+		background-color:$theme_dark_blue;
+		cursor:pointer;
+	}
+
+}
+
+.shelf-background {
+	display:inline-block;
+	background-color:$theme_dark_blue;
+	border:1px solid white;
+	border-radius:10px;
+}
+
+.shelf-border {
+	//position:relative;
+	//display:inline-block;
+	
+	border-radius: 10px;
+	padding: 10px;
+	// padding-left:5%;
+	// padding-right:5%;
+	min-width: 170px;
+	width: 40vw;
+	overflow:hidden;
+
+	background-color: $theme_dark_blue;
+	color:white;
+
+	h3 {
+		text-align: center;
+		color: white;
+	}
+
+	input {
+		color:black;
+	}
+	button {
+		color:black;
+	}
+}
+
+.shelf {
+	display:flex;
+	align-content: flex-start;
+	flex-wrap: wrap;
+
+	background-image: url("./../../img/empty_bookshelf.jpg");
+	background-size: 100% 341px;
+	background-position: 0 27px;
+	border-radius:5px;
+	
+	min-height:357px;
+	height:100%;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.shelf-top {
+	display: inline-block;
+	max-height: 27px;
+	margin-left:-20px;
+	margin-right:-20px;
+}
+
+.search-box { 
+	min-width: 200px;
+	min-height: 250px;
+	margin-top:auto;
+	margin-bottom:auto;
+	background-color:$theme_red;
+	padding: 20px;
+
+	display:flex;
+	flex-direction: column;
+	justify-content:space-around;
+	align-items:center;
+
+	border-radius:5px;
+	border: 1px solid black;
+	h3 {
+		color:white;
+		margin:0;
+	}
+}

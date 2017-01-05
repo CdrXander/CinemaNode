@@ -883,6 +883,9 @@
 .carousel-control {
   width: 5%; }
 
+.fa {
+  overflow: visible; }
+
 .center {
   display: flex;
   justify-content: center;
@@ -928,17 +931,13 @@
     -webkit-transform: translatey(50%);
     transform: translatey(50%); }
 
-.center {
-  display: flex;
-  justify-content: center;
-  text-align: center; }
-
 * {
   box-sizing: border-box;
-  overflow: auto; }
+  overflow-x: auto; }
 
 body {
-  margin: 0; }
+  margin: 0;
+  background-color: #414141; }
 
 p {
   -webkit-margin-before: 0;
@@ -951,7 +950,7 @@ header {
   background-color: rgba(10, 10, 10, 0.8);
   width: 100%;
   height: 10vh;
-  min-height: 40px;
+  min-height: 60px;
   display: flex;
   align-items: center;
   position: fixed;
@@ -960,6 +959,9 @@ header {
   justify-content: space-between;
   padding-left: 10px;
   padding-right: 10px; }
+  header .title-cinema {
+    font-family: 'Pacifico', cursive;
+    font-size: 40px; }
   header a:link, header a:visited, header a:hover, header a:active {
     text-decoration: none;
     color: white; }
@@ -992,13 +994,17 @@ h1 {
   color: white;
   text-transform: uppercase;
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #09395D;
   overflow: visible; }
 
 select, textarea {
   color: black; }
 
 /*CLASSES*/
+.test-border {
+  border: 2px dashed black;
+  border-radius: 5px; }
+
 .nav-list {
   width: 100%;
   height: 100%;
@@ -1008,52 +1014,9 @@ select, textarea {
 
 .title {
   color: white;
-  font-size: 30px;
+  font-size: 35px;
   overflow: visible;
-  text-decoration: none; }
-
-.shelf-container {
-  position: relative;
-  display: flex;
-  justify-content: space-around; }
-
-.shelf-border {
-  position: relative;
-  display: inline-block;
-  border: 1px solid white;
-  border-radius: 10px;
-  padding: 10px;
-  min-width: 170px;
-  width: 40vw;
-  overflow: hidden;
-  background-color: black;
-  color: white; }
-  .shelf-border h3 {
-    text-align: center;
-    color: white; }
-  .shelf-border input {
-    color: black; }
-  .shelf-border button {
-    color: black; }
-
-.shelf {
-  display: flex;
-  align-content: flex-start;
-  flex-wrap: wrap;
-  background-image: url("./../../img/empty_bookshelf.jpg");
-  background-size: 100% 341px;
-  background-position: 0 27px;
-  border-radius: 5px;
-  min-height: 357px;
-  height: 100%;
-  padding-left: 20px;
-  padding-right: 20px; }
-
-.shelf-top {
-  display: inline-block;
-  max-height: 27px;
-  margin-left: -20px;
-  margin-right: -20px; }
+  ecoration: none; }
 
 .cover {
   display: inline-flex;
@@ -1107,22 +1070,6 @@ select, textarea {
   background-color: #0060AA;
   color: white; }
 
-.search-box {
-  margin: auto;
-  min-width: 200px;
-  min-height: 250px;
-  background-color: #5A051C;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  border-radius: 5px;
-  border: 1px solid black; }
-  .search-box h3 {
-    color: white;
-    margin: 0; }
-
 .col-in {
   background-color: green; }
 
@@ -1134,6 +1081,16 @@ select, textarea {
   width: 10vw;
   border-radius: 5px;
   color: white; }
+
+.login-box {
+  width: 400px;
+  margin: auto;
+  margin-top: 15vh;
+  padding: 20px;
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+  overflow: visible; }
 
 @media (max-width: 600px) {
   .shelf-container {
@@ -1148,6 +1105,93 @@ select, textarea {
     margin: auto;
     width: 80vw;
     min-width: 300px; } }
+
+.shelf-container {
+  position: relative;
+  display: flex;
+  justify-content: space-around; }
+
+.container {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center; }
+
+.shelf-menu {
+  float: left;
+  padding: 0;
+  background-color: #0060AA;
+  height: 100%; }
+  .shelf-menu div {
+    padding: 5px;
+    padding-right: 25px;
+    margin: 10px 0 10px 0;
+    border-radius: 5px 0 0 5px;
+    font-size: 20px;
+    color: white; }
+  .shelf-menu div.selected {
+    background-color: #09395D; }
+  .shelf-menu div:hover {
+    background-color: #09395D;
+    cursor: pointer; }
+
+.shelf-background {
+  display: inline-block;
+  background-color: #09395D;
+  border: 1px solid white;
+  border-radius: 10px; }
+
+.shelf-border {
+  border-radius: 10px;
+  padding: 10px;
+  min-width: 170px;
+  width: 40vw;
+  overflow: hidden;
+  background-color: #09395D;
+  color: white; }
+  .shelf-border h3 {
+    text-align: center;
+    color: white; }
+  .shelf-border input {
+    color: black; }
+  .shelf-border button {
+    color: black; }
+
+.shelf {
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  background-image: url("./../../img/empty_bookshelf.jpg");
+  background-size: 100% 341px;
+  background-position: 0 27px;
+  border-radius: 5px;
+  min-height: 357px;
+  height: 100%;
+  padding-left: 20px;
+  padding-right: 20px; }
+
+.shelf-top {
+  display: inline-block;
+  max-height: 27px;
+  margin-left: -20px;
+  margin-right: -20px; }
+
+.search-box {
+  min-width: 200px;
+  min-height: 250px;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: #B71712;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid black; }
+  .search-box h3 {
+    color: white;
+    margin: 0; }
 
 main.ng-enter {
   transition: .5s;

@@ -22,7 +22,7 @@ angular.module('cinemaNode', ['ui.router']).config(function($stateProvider, $url
 
 	$stateProvider
 		.state('home', {
-			url: '/',
+			url: '/home',
 			templateUrl: './views/home.html',
 			controller: 'homeCtrl',
 			resolve: {
@@ -59,6 +59,6 @@ angular.module('cinemaNode', ['ui.router']).config(function($stateProvider, $url
 			templateUrl:'./views/login.html'
 		});
 
-		$urlRouterProvider.otherwise('/');
+		$urlRouterProvider.otherwise('/shelves');
 
 }).run();

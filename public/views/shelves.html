@@ -1,11 +1,18 @@
 <h1>My Shelves</h1>
 
-<section class="shelf-container">
+<section class="container">
+	<div class="shelf-background">
+		<span class="shelf-menu">
+			<div ng-repeat="shelf in shelves" ng-click="updateShelf($index)" 
+			ng-class="{'selected': shelf.shelf_id == currentShelf.shelf_id}">
+				{{shelf.name}}
+			</div>
+		</span>
 
-
-	<div class="shelf-border" ng-repeat="shelf in shelves">
-		<h3> {{shelf.name}} </h3>
-		<p> {{shelf.summary}} </p>
-		<movie-display movies="shelf.movies"></movie-display>
+		<div class="shelf-border">
+			<h3> {{currentShelf.name}} </h3>
+			<p> {{currentShelf.summary}} </p>
+			<movie-display movies="currentShelf.movies"></movie-display>
+		</div>
 	</div>
 </section>
