@@ -42,6 +42,17 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 		return deferred.promise;
 	}
 
+	//GET shelf list for a movie/user combo
+	this.getShelvesForMovie = movie_id => {
+		var deferred = $q.defer();
+		var url = baseURL + "/shelves/movie/" + movie_id;
+		$http.get(url)
+		.success(response => {
+			deferred.resolve(response);
+		})
+		return deferred.promise;
+	}
+
 //MOVIES 	=	=	=	=	=	=	=	=	=	=	=	=	=
 
 	//CREATE record in shelf_movie (no need for user id, as is tied to shelf)

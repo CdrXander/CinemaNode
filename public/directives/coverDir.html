@@ -15,16 +15,21 @@
 		<p> Year: {{movie.Year}}</p>
 
 
-<!-- 		<div>
+		<button ng-click="showShelfList($index, movie.imdbID)">Add to</button>
+
+		<div ng-show="isVisible[$index]">
 			<div ng-repeat="shelf in shelfList">
-				<input type="checkbox">
+				<input type="checkbox" name="selected" 
+				ng-checked="isSelected(shelf.shelf_id)"
+				ng-click="updateMovieShelf(movie.imdbID, shelf.shelf_id)">
 				{{shelf.name}}
 			</div>
-		</div> -->
+		</div>
 
 
-		<select ng-model="selectedShelf" ng-options="shelf.name for shelf in shelfList">
+<!-- 		<select ng-model="selectedShelf" ng-options="shelf.name for shelf in shelfList">
 		</select>
 		<button ng-click="addMovieToShelf(movie,selectedShelf.shelf_id)">Add to List</button>
+ -->
 	</span>
 </div>	

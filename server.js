@@ -91,7 +91,7 @@ app.get('/user/current', userNode.getCurrentUser);
 app.get('/shelves/all', authcheck, shelfNode.getAllShelves);
 app.get('/shelves/',authcheck, shelfNode.getShelvesForUser);
 app.get('/shelves/list/',authcheck, shelfNode.getShelfListForUser);
-app.get('/shelves/movie/:mid/:uid', shelfNode.getShelvesForMovie)
+app.get('/shelves/movie/:mid', shelfNode.getShelvesForMovie)
 
 //Movies
 app.post('/movies/addtoshelf',authcheck, movieNode.addMovieToShelf);

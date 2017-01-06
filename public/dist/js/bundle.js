@@ -203,6 +203,16 @@ angular.module("cinemaNode").service("apiService", function ($http, $q) {
 		return deferred.promise;
 	};
 
+	//GET shelf list for a movie/user combo
+	this.getShelvesForMovie = function (movie_id) {
+		var deferred = $q.defer();
+		var url = baseURL + "/shelves/movie/" + movie_id;
+		$http.get(url).success(function (response) {
+			deferred.resolve(response);
+		});
+		return deferred.promise;
+	};
+
 	//MOVIES 	=	=	=	=	=	=	=	=	=	=	=	=	=
 
 	//CREATE record in shelf_movie (no need for user id, as is tied to shelf)
@@ -454,9 +464,31 @@ angular.module('cinemaNode').directive('movieDisplay', function () {
 			});
 		};
 
+		//All these functions make the "Add to" dialogue work
+		$scope.getShelfListForMovie = function (movie_id) {
+			apiService.getShelvesForMovie(movie_id).then(function (movieShelfList) {
+				$scope.movieShelfList = movieShelfList;
+			});
+		};
+
+		$scope.showShelfList = function (index, movie_id) {
+			$scope.getShelfListForMovie(movie_id);
+			$scope.isVisible[index] = !!!$scope.isVisible[index];
+		};
+
+		$scope.isSelected = function (shelf_id) {
+			return $scope.movieShelfList.indexOf(shelf_id) >= 0;
+		};
+
+		$scope.updateMovieShelf = function () {
+			console.log("TODO");
+		};
+
+		// Initialization of data
 		apiService.getUserShelfList().then(function (shelfList) {
 			$scope.shelfList = shelfList;
 		});
+		$scope.isVisible = [];
 	}];
 
 	return {

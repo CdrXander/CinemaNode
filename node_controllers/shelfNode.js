@@ -92,7 +92,9 @@ function getShelvesForUser(req,res,next) {
 
 function getShelvesForMovie(req,res,next) {
 	var db = app.get('db');
-	db.get_shelves_for_movie([req.params.mid, req.params.uid],function(err, shelflist) {
+	db.get_shelves_for_movie(
+	[req.params.mid, req.session.currentUser.user_id],
+	function(err, shelflist) {
 		if(!err) {
 			res.status(200).send(shelflist)
 		} else {
