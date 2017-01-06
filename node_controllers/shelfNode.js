@@ -4,7 +4,8 @@ var config 	= require ('./../config.js');
 module.exports = {
 	getShelfListForUser:getShelfListForUser,
 	getAllShelves:getAllShelves,
-	getShelvesForUser:getShelvesForUser
+	getShelvesForUser:getShelvesForUser,
+	getShelvesForMovie:getShelvesForMovie,
 }
 
 function getShelfListForUser(req,res,next) {
@@ -85,6 +86,19 @@ function getShelvesForUser(req,res,next) {
 		} else { 
 			console.log(err);
 			res.status(500).send(err);
+		}
+	})
+}
+
+function getShelvesForMovie(req,res,next) {
+	var db = app.get('db');
+	db.get_shelves_for_movie([req.params.mid, req.params.uid],function(err, shelflist) {
+		if(!err) {
+			res.status(200).send(shelflist)
+		} else {
+			console.log('ShelfNode.getShelvesForMovie');
+			console.log(err);
+			res.send(500);
 		}
 	})
 }

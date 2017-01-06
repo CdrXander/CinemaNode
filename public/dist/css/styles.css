@@ -960,11 +960,16 @@ header {
   padding-left: 10px;
   padding-right: 10px; }
   header .title-cinema {
-    font-family: 'Pacifico', cursive;
     font-size: 40px; }
   header a:link, header a:visited, header a:hover, header a:active {
     text-decoration: none;
     color: white; }
+
+.title-cinema {
+  font-family: 'Pacifico', cursive; }
+
+.title-node {
+  font-family: 'Arvo', serif; }
 
 nav {
   align-items: center;
@@ -986,9 +991,6 @@ ul {
   overflow: visible;
   list-style-type: none; }
 
-h3 {
-  text-transform: uppercase; }
-
 h1 {
   font-family: 'Arvo', serif;
   color: white;
@@ -996,6 +998,12 @@ h1 {
   text-align: center;
   background-color: #09395D;
   overflow: visible; }
+
+h2 {
+  overflow: visible; }
+
+h3 {
+  text-transform: uppercase; }
 
 select, textarea {
   color: black; }
@@ -1049,6 +1057,10 @@ select, textarea {
   height: auto;
   max-width: 360px;
   max-height: 450px; }
+
+.profile-img {
+  height: 50px;
+  width: 50px; }
 
 .transparent-shelf-border {
   display: inline-block;

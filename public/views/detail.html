@@ -28,7 +28,7 @@
 
 		<div>
 			<p>
-				<img ng-src="{{currentUser.photo_url}}">
+				<img class="profile-img" ng-src="{{currentUser.photo_url}}">
 				Your Review
 			</p><p>
 				<textarea rows="6" cols="50" ng-model="userReview"></textarea>
@@ -39,7 +39,7 @@
 
 		<div ng-repeat="review in reviews">
 			<p> {{review.first_name}} {{review.last_name}}</p>
-			<img ng-src="{{review.photo_url}}">
+			<img class="profile-img" ng-src="{{review.photo_url}}">
 			<p>{{review.user_rating}}/5</p>
 			<p>{{review.review_text}}</p>
 			<hr>
