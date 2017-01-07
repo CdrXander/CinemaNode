@@ -458,22 +458,22 @@ angular.module('cinemaNode').service('omdbService', function ($http, $q) {
 angular.module('cinemaNode').directive('movieDisplay', function () {
 
 	var coverController = ['$scope', 'apiService', function ($scope, apiService) {
-		$scope.addMovieToShelf = function (movie, shelf_id) {
-			apiService.addMovieToShelf(movie, shelf_id).then(function (response) {
+		$scope.addMovieToShelf = function (shelf_id) {
+			apiService.addMovieToShelf($scope.movie, shelf_id).then(function (response) {
 				console.log("movie saved");
 			});
 		};
 
 		//All these functions make the "Add to" dialogue work
-		$scope.getShelfListForMovie = function (movie_id) {
-			apiService.getShelvesForMovie(movie_id).then(function (movieShelfList) {
+		$scope.getShelfListForMovie = function () {
+			apiService.getShelvesForMovie($scope.movie.imdbID).then(function (movieShelfList) {
 				$scope.movieShelfList = movieShelfList;
 			});
 		};
 
-		$scope.showShelfList = function (index, movie_id) {
-			$scope.getShelfListForMovie(movie_id);
-			$scope.isVisible[index] = !!!$scope.isVisible[index];
+		$scope.showShelfList = function () {
+			$scope.getShelfListForMovie($scope.movie.imdbID);
+			$scope.isVisible = !!!$scope.isVisible;
 		};
 
 		$scope.isSelected = function (shelf_id) {
@@ -483,21 +483,36 @@ angular.module('cinemaNode').directive('movieDisplay', function () {
 		$scope.updateMovieShelf = function () {
 			console.log("TODO");
 		};
-
-		// Initialization of data
-		apiService.getUserShelfList().then(function (shelfList) {
-			$scope.shelfList = shelfList;
-		});
-		$scope.isVisible = [];
 	}];
 
 	return {
 		restrict: "E",
 		templateUrl: './directives/coverDir.html',
 		scope: {
-			movies: '='
+			movie: '=',
+			shelfList: '='
+
 		},
 		controller: coverController
+	};
+});
+'use strict';
+
+angular.module('cinemaNode').directive('shelfDisplay', function () {
+
+	var dirController = ['$scope', 'apiService', function ($scope, apiService) {
+		apiService.getUserShelfList().then(function (shelfList) {
+			$scope.shelfList = shelfList;
+		});
+	}];
+
+	return {
+		restrict: "E",
+		templateUrl: './directives/shelfDir.html',
+		scope: {
+			movies: "="
+		},
+		controller: dirController
 	};
 });
 //# sourceMappingURL=bundle.js.map

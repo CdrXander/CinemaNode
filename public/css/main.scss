@@ -196,10 +196,10 @@ select, textarea{
 }
 
 .result-box {
-	width: 170px;
-	height: 320px;
+	min-width: 170px;
+	min-height: 320px;
 	text-align: center;
-	overflow:hidden;
+	overflow-y:hidden;
 
 	padding: 5px;
 	margin: 5px;

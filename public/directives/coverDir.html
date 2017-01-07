@@ -1,35 +1,32 @@
 
-<div class="shelf">
-	<img src="./img/empty_bookshelf_top.jpg" class="shelf-top" />
-	<span ng-repeat="movie in movies" class='result-box'>
-		<a ui-sref="details({id: movie.imdbID})">
-			<div class="cover hover-effect">
-				<img class="cover-img" ng-src="{{movie.Poster}}"/>
-				<div class="title-overlay">
-					<h2>
-						{{movie.Title}}
-					</h2>
-				</div>
-			</div>
-		</a>
-		<p> Year: {{movie.Year}}</p>
-
-
-		<button ng-click="showShelfList($index, movie.imdbID)">Add to</button>
-
-		<div ng-show="isVisible[$index]">
-			<div ng-repeat="shelf in shelfList">
-				<input type="checkbox" name="selected" 
-				ng-checked="isSelected(shelf.shelf_id)"
-				ng-click="updateMovieShelf(movie.imdbID, shelf.shelf_id)">
-				{{shelf.name}}
+<!-- <span class='result-box'> -->
+	<a ui-sref="details({id: movie.imdbID})">
+		<div class="cover hover-effect">
+			<img class="cover-img" ng-src="{{movie.Poster}}"/>
+			<div class="title-overlay">
+				<h2>
+					{{movie.Title}}
+				</h2>
 			</div>
 		</div>
+	</a>
+	<p> Year: {{movie.Year}}</p>
 
 
-<!-- 		<select ng-model="selectedShelf" ng-options="shelf.name for shelf in shelfList">
-		</select>
-		<button ng-click="addMovieToShelf(movie,selectedShelf.shelf_id)">Add to List</button>
- -->
-	</span>
-</div>	
+	<button ng-click="showShelfList(movie.imdbID)">Add to</button>
+
+	<div ng-show="isVisible">
+		<div ng-repeat="shelf in shelfList">
+			<input type="checkbox" name="selected" 
+			ng-checked="isSelected(shelf.shelf_id)"
+			ng-click="updateMovieShelf(movie.imdbID, shelf.shelf_id)">
+			{{shelf.name}}
+		</div>
+	</div>
+
+
+<!-- 	<select ng-model="selectedShelf" ng-options="shelf.name for shelf in shelfList">
+	</select>
+	<button ng-click="addMovieToShelf(movie,selectedShelf.shelf_id)">Add to List</button>
+-->
+<!-- </span> -->

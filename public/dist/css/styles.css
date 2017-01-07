@@ -1070,10 +1070,10 @@ select, textarea {
   background-color: transparent; }
 
 .result-box {
-  width: 170px;
-  height: 320px;
+  min-width: 170px;
+  min-height: 320px;
   text-align: center;
-  overflow: hidden;
+  overflow-y: hidden;
   padding: 5px;
   margin: 5px;
   margin-bottom: 15px;
@@ -1154,6 +1154,8 @@ select, textarea {
   border-radius: 10px; }
 
 .shelf-border {
+  position: relative;
+  display: inline-block;
   border-radius: 10px;
   padding: 10px;
   min-width: 170px;
