@@ -8,25 +8,38 @@ angular.module('cinemaNode').directive('movieDisplay', function(){
 			});
 		}
 
-
 		//All these functions make the "Add to" dialogue work
-		$scope.getShelfListForMovie = () => {
-			apiService.getShelvesForMovie($scope.movie.imdbID).then(movieShelfList => {
-				$scope.movieShelfList = movieShelfList;
+		function getUpdatedData() {
+			apiService.getShelvesForMovie($scope.movie.imdbID).then(response => {
+				$scope.movieShelfList = response.shelfList;
+				$scope.shelfNames = response.shelfNames;
 			});
 		}
 
+
 		$scope.showShelfList = () => {
-			$scope.getShelfListForMovie($scope.movie.imdbID);
+			getUpdatedData();
 			$scope.isVisible = !!!$scope.isVisible;
 		}
 
 		$scope.isSelected = shelf_id => {
-			return $scope.movieShelfList.indexOf(shelf_id) >= 0;
+			var selected = $scope.movieShelfList.indexOf(shelf_id) >= 0
+			return selected;
 		}
 
-		$scope.updateMovieShelf = () => {
-			console.log("TODO");
+		$scope.updateMovieShelf = shelf_id => {
+			
+			if($scope.movieShelfList.indexOf(shelf_id) >= 0) {
+				apiService.deleteShelfMovie($scope.movie.imdbID, shelf_id).then(response => {
+					getUpdatedData();
+					$scope.reload();
+				})
+			} else {
+				apiService.addMovieToShelf($scope.movie, shelf_id).then(response => {
+					getUpdatedData();
+					$scope.reload();
+				})
+			}
 		}
 
 	}]
@@ -38,8 +51,7 @@ angular.module('cinemaNode').directive('movieDisplay', function(){
 		templateUrl: './directives/coverDir.html',
 		scope: {
 			movie: '=',
-			shelfList: '='
-
+			reload: '&'
 		},
 		controller:coverController
 	}

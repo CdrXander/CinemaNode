@@ -95,9 +95,19 @@ angular.module('cinemaNode').controller('detailCtrl', function ($scope, $statePa
 		$scope.reviews = reviews;
 	});
 
-	apiService.getUserShelfList().then(function (shelfList) {
-		$scope.shelfList = shelfList;
-	});
+	//These functions make the add to dialog work
+	function getUpdatedData() {
+		apiService.getShelvesForMovie($stateParams.id).then(function (response) {
+			$scope.movieShelfList = response.shelfList;
+			$scope.shelfNames = response.shelfNames;
+		});
+	}
+
+	getUpdatedData();
+
+	$scope.showShelfList = function () {
+		$scope.isVisible = !!!$scope.isVisible;
+	};
 
 	$scope.saveReview = function () {
 		apiService.saveReview($scope.movie.imdbID, $scope.userReview, 5).then(function (response) {
@@ -105,10 +115,21 @@ angular.module('cinemaNode').controller('detailCtrl', function ($scope, $statePa
 		});
 	};
 
-	$scope.addMovieToShelf = function (movie, shelf_id) {
-		apiService.addMovieToShelf(movie, shelf_id).then(function (response) {
-			console.log("movie saved");
-		});
+	$scope.isSelected = function (shelf_id) {
+		return $scope.movieShelfList.indexOf(shelf_id) >= 0;
+	};
+
+	$scope.updateMovieShelf = function (shelf_id) {
+
+		if ($scope.movieShelfList.indexOf(shelf_id) >= 0) {
+			apiService.deleteShelfMovie($scope.movie.imdbID, shelf_id).then(function (response) {
+				getUpdatedData();
+			});
+		} else {
+			apiService.addMovieToShelf($scope.movie, shelf_id).then(function (response) {
+				getUpdatedData();
+			});
+		}
 	};
 });
 'use strict';
@@ -149,10 +170,16 @@ angular.module('cinemaNode').controller('searchCtrl', function ($scope, omdbServ
 
 angular.module('cinemaNode').controller('shelvesCtrl', function ($scope, apiService) {
 
-	$scope.loadMovieData = function () {
+	$scope.initialLoad = function () {
 		apiService.getUserMovies().then(function (serviceData) {
 			$scope.shelves = serviceData;
 			$scope.currentShelf = $scope.shelves[0];
+		});
+	};
+
+	$scope.loadMovieData = function () {
+		apiService.getUserMovies().then(function (serviceData) {
+			$scope.shelves = serviceData;
 		});
 	};
 
@@ -160,7 +187,7 @@ angular.module('cinemaNode').controller('shelvesCtrl', function ($scope, apiServ
 		$scope.currentShelf = $scope.shelves[shelfIndex];
 	};
 
-	$scope.loadMovieData();
+	$scope.initialLoad();
 });
 "use strict";
 
@@ -225,7 +252,18 @@ angular.module("cinemaNode").service("apiService", function ($http, $q) {
 
 		var deferred = $q.defer();
 		var url = baseURL + "/movies/addtoshelf/";
-		$http.post(url, data).success(function (response) {});
+		$http.post(url, data).success(function (response) {
+			deferred.resolve();
+		});
+		return deferred.promise;
+	};
+
+	this.deleteShelfMovie = function (movie_id, shelf_id) {
+		var deferred = $q.defer();
+		var url = baseURL + "/movies/shelfmovie/" + shelf_id + "/" + movie_id;
+		$http.delete(url).success(function (response) {
+			deferred.resolve();
+		});
 		return deferred.promise;
 	};
 
@@ -270,7 +308,7 @@ angular.module("cinemaNode").service("apiService", function ($http, $q) {
 		};
 
 		var deferred = $q.defer();
-		var url = '${baseURL}/review/new';
+		var url = baseURL + '/review/new';
 		$http.post(url, reviewData).success(function (response) {
 			if (response == "200") {
 				deferred.resolve(true);
@@ -465,23 +503,36 @@ angular.module('cinemaNode').directive('movieDisplay', function () {
 		};
 
 		//All these functions make the "Add to" dialogue work
-		$scope.getShelfListForMovie = function () {
-			apiService.getShelvesForMovie($scope.movie.imdbID).then(function (movieShelfList) {
-				$scope.movieShelfList = movieShelfList;
+		function getUpdatedData() {
+			apiService.getShelvesForMovie($scope.movie.imdbID).then(function (response) {
+				$scope.movieShelfList = response.shelfList;
+				$scope.shelfNames = response.shelfNames;
 			});
-		};
+		}
 
 		$scope.showShelfList = function () {
-			$scope.getShelfListForMovie($scope.movie.imdbID);
+			getUpdatedData();
 			$scope.isVisible = !!!$scope.isVisible;
 		};
 
 		$scope.isSelected = function (shelf_id) {
-			return $scope.movieShelfList.indexOf(shelf_id) >= 0;
+			var selected = $scope.movieShelfList.indexOf(shelf_id) >= 0;
+			return selected;
 		};
 
-		$scope.updateMovieShelf = function () {
-			console.log("TODO");
+		$scope.updateMovieShelf = function (shelf_id) {
+
+			if ($scope.movieShelfList.indexOf(shelf_id) >= 0) {
+				apiService.deleteShelfMovie($scope.movie.imdbID, shelf_id).then(function (response) {
+					getUpdatedData();
+					$scope.reload();
+				});
+			} else {
+				apiService.addMovieToShelf($scope.movie, shelf_id).then(function (response) {
+					getUpdatedData();
+					$scope.reload();
+				});
+			}
 		};
 	}];
 
@@ -490,8 +541,7 @@ angular.module('cinemaNode').directive('movieDisplay', function () {
 		templateUrl: './directives/coverDir.html',
 		scope: {
 			movie: '=',
-			shelfList: '='
-
+			reload: '&'
 		},
 		controller: coverController
 	};
@@ -500,19 +550,19 @@ angular.module('cinemaNode').directive('movieDisplay', function () {
 
 angular.module('cinemaNode').directive('shelfDisplay', function () {
 
-	var dirController = ['$scope', 'apiService', function ($scope, apiService) {
-		apiService.getUserShelfList().then(function (shelfList) {
-			$scope.shelfList = shelfList;
-		});
-	}];
+	// var dirController = ['$scope', 'apiService', function($scope, apiService) {
+	// 	apiService.getUserShelfList().then(shelfList => {
+	// 		$scope.shelfList = shelfList;
+	// 	}); 	
+	// }]
 
 	return {
 		restrict: "E",
 		templateUrl: './directives/shelfDir.html',
 		scope: {
-			movies: "="
-		},
-		controller: dirController
+			movies: "=",
+			reload: '&'
+		}
 	};
 });
 //# sourceMappingURL=bundle.js.map

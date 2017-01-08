@@ -94,9 +94,20 @@ function getShelvesForMovie(req,res,next) {
 	var db = app.get('db');
 	db.get_shelves_for_movie(
 	[req.params.mid, req.session.currentUser.user_id],
-	function(err, shelflist) {
+	function(err, shelfList) {
 		if(!err) {
-			res.status(200).send(shelflist)
+			shelfArray = [];
+			shelfList.forEach(function(shelf) {
+				shelfArray.push(shelf.shelf_id);
+			});
+			db.get_shelf_list_for_user([req.session.currentUser.user_id], function(err, shelfNames) {
+				var responseObj = {
+					shelfList: shelfArray,
+					shelfNames: shelfNames
+				}
+				res.status(200).send(responseObj);
+
+			})
 		} else {
 			console.log('ShelfNode.getShelvesForMovie');
 			console.log(err);

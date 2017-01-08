@@ -22,9 +22,16 @@
 		<p>Tomato Meter: {{movie.tomatoMeter}}%</p>
 		<p>IMDb Rating: {{movie.imdbRating}}/10</p>
 		<hr>
-		<select ng-model="selectedShelf" ng-options="shelf.name for shelf in shelfList">
-		</select>
-		<button ng-click="addMovieToShelf(movie,selectedShelf.shelf_id)">Add to List</button>
+		<button ng-click="showShelfList()">Add to</button>
+
+		<div ng-show="isVisible">
+			<div ng-repeat="shelf in shelfNames">
+				<input type="checkbox" name="selected" 
+				ng-checked="isSelected(shelf.shelf_id)"
+				ng-click="updateMovieShelf(shelf.shelf_id)">
+				{{shelf.name}}
+			</div>
+		</div>
 
 		<div>
 			<p>
@@ -34,10 +41,9 @@
 				<textarea rows="6" cols="50" ng-model="userReview"></textarea>
 			</p>	
 			<button ng-click="saveReview()">Save Review</button>
-			<button>Delete Review</button>
 		</div>
 
-		<div ng-repeat="review in reviews">
+		<div ng-repeat="review in reviews" class="review-box">
 			<p> {{review.first_name}} {{review.last_name}}</p>
 			<img class="profile-img" ng-src="{{review.photo_url}}">
 			<p>{{review.user_rating}}/5</p>

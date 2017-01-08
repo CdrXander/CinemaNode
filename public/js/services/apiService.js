@@ -67,7 +67,16 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 		var url = baseURL + "/movies/addtoshelf/";
 		$http.post(url,data)
 		.success(response => {
+			deferred.resolve();
+		});
+		return deferred.promise;
+	}
 
+	this.deleteShelfMovie = (movie_id, shelf_id) => {
+		var deferred = $q.defer();
+		var url = baseURL + "/movies/shelfmovie/"+shelf_id+"/"+movie_id;
+		$http.delete(url).success(response => {
+			deferred.resolve();
 		});
 		return deferred.promise;
 	}
@@ -85,6 +94,8 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 		})
 		return deferred.promise;
 	}
+
+
 
 
 //REVIEWS 	=	=	=	=	=	=	=	=	=	=	=	=	=
@@ -115,7 +126,7 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 		}
 
 		var deferred = $q.defer();
-		var url = '${baseURL}/review/new';
+		var url = baseURL + '/review/new';
 		$http.post(url, reviewData).success(response => {
 			if(response == "200") {
 				deferred.resolve(true);

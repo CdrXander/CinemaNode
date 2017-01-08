@@ -46,7 +46,6 @@ function createUser(fbuser,req, res) {
 	}, 
 	function(err, user) {
 		if(!err) {
-			console.log(user);
 			createBasicShelf(req, user, sd.ownName, sd.ownSum, "own_shelf_id");
 			createBasicShelf(req, user, sd.watchName, sd.watchSum, 'watch_shelf_id');
 			createBasicShelf(req, user, sd.seenName, sd.seenSum, 'seen_shelf_id', function(res){res.status(200).redirect('/')}, res);
@@ -70,7 +69,7 @@ function createBasicShelf(req, user, name, summary,shelf_col, send, res) {
 	function(err, shelf) {
 		db.users.update({user_id:user.user_id,[shelf_col]:shelf.shelf_id}, function(err,user) {
 			if(!err) {
-				req.session.currentUser = user[0];
+				req.session.currentUser = user;
 				if(!!send) {
 					send(res);
 				}

@@ -1082,6 +1082,12 @@ select, textarea {
   background-color: #0060AA;
   color: white; }
 
+.review-box {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #0060AA; }
+
 .col-in {
   background-color: green; }
 

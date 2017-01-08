@@ -23,11 +23,20 @@ angular.module('cinemaNode').controller(
 		$scope.reviews = reviews;
 	});
 
-	apiService.getUserShelfList().then(shelfList => {
-		$scope.shelfList = shelfList;
-	}); 
-	
 
+	//These functions make the add to dialog work
+	function getUpdatedData() {
+		apiService.getShelvesForMovie($stateParams.id).then(response => {
+			$scope.movieShelfList = response.shelfList;
+			$scope.shelfNames = response.shelfNames;
+		});	
+	}
+	
+	getUpdatedData();
+
+	$scope.showShelfList = () => {
+		$scope.isVisible = !!!$scope.isVisible;
+	}
 
 	$scope.saveReview = () => {
 		apiService.saveReview($scope.movie.imdbID, $scope.userReview, 5).then(response => {
@@ -35,11 +44,22 @@ angular.module('cinemaNode').controller(
 		})
 
 	}
-
-	$scope.addMovieToShelf = function(movie, shelf_id) {
-		apiService.addMovieToShelf(movie, shelf_id).then(response => {
-			console.log("movie saved");
-		})
+	
+	$scope.isSelected = shelf_id => {
+		return $scope.movieShelfList.indexOf(shelf_id) >= 0
 	}
+
+	$scope.updateMovieShelf = shelf_id => {
+			
+			if($scope.movieShelfList.indexOf(shelf_id) >= 0) {
+				apiService.deleteShelfMovie($scope.movie.imdbID, shelf_id).then(response => {
+					getUpdatedData();
+				})
+			} else {
+				apiService.addMovieToShelf($scope.movie, shelf_id).then(response => {
+					getUpdatedData();
+				})
+			}
+		}
 
 })

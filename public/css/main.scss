@@ -211,6 +211,13 @@ select, textarea{
 	color:white;
 }
 
+.review-box {
+	border:1px solid black;
+	border-radius:5px;
+	padding:10px;
+	background-color: $theme_blu-ray;
+}
+
 
 // Short for "In Collection"
 .col-in {

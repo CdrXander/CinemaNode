@@ -96,6 +96,7 @@ app.get('/shelves/movie/:mid', shelfNode.getShelvesForMovie)
 //Movies
 app.post('/movies/addtoshelf',authcheck, movieNode.addMovieToShelf);
 app.get('/movies/movie/:mid',authcheck, movieNode.getMovieById);
+app.delete('/movies/shelfmovie/:sid/:mid', movieNode.removeMovieFromShelf)
 
 //Reviews
 app.get('/review/movie/:mid', reviewNode.getReviewsForMovie);

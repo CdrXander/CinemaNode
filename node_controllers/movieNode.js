@@ -3,6 +3,7 @@ var config 	= require ('./../config.js');
 
 module.exports = {
 	addMovieToShelf:addMovieToShelf,
+	removeMovieFromShelf:removeMovieFromShelf,
 	getMovieById:getMovieById
 }
 
@@ -18,13 +19,26 @@ function addMovieToShelf(req,res,next) {
 			}
 			db.add_movie_to_shelf([req.body.shelf_id,req.body.movie.imdbID, new Date()], function (err, shelf_movie) {
 				if(!err) {
-					res.status(204).send();
+					res.status(200).send();
 				} else {
 					res.status(500).send(err);
 				}
 			})
 		} else {
 			res.status(500).send(err);
+		}
+	})
+}
+
+function removeMovieFromShelf(req,res,next) {
+	var db = app.get('db');
+	db.shelf_movie.destroy({shelf_id: req.params.sid, movie_id: req.params.mid}, function(err,result) {
+		if(!err) {
+			res.status(200).send();
+		} else {
+			console.log("movieNode.removeMovieFromShelf");
+			console.log(err);
+			res.status(500).send();
 		}
 	})
 }

@@ -36,8 +36,6 @@ CREATE TABLE public.users
     user_id integer NOT NULL DEFAULT nextval('users_pk'::regclass),
     fb_user_id text ,
     username text,
-    password text,
-    pw_salt text,
     first_name text ,
     last_name text,
     photo_url text,
@@ -126,13 +124,14 @@ INSERT INTO public.users(
 	last_name, 
 	own_shelf_id, 
 	seen_shelf_id, 
-	watch_shelf_id
+	watch_shelf_id,
+    photo_url
 	)
-	VALUES (1, 1, 'Tom', 'Stranger', 1, 2, 3);
+	VALUES (1, 1, 'Tom', 'Stranger', 1, 2, 3, './img/default_profile.png');
 
 INSERT INTO public.users
-	(user_id, first_name,last_name)
-	VALUES (99,'Testy', 'Testerson');
+	(user_id, first_name,last_name, photo_url)
+	VALUES (99,'Testy', 'Testerson', './img/default_profile.png');
 INSERT INTO public.shelf
 	(shelf_id,user_id, name, summary)
 	VALUES (99,99, 'My Movies', 'Movies I own');

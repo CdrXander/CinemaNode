@@ -1,9 +1,15 @@
 angular.module('cinemaNode').controller('shelvesCtrl', function($scope, apiService) {
 
+	$scope.initialLoad = function() {
+		apiService.getUserMovies().then(serviceData => {
+			$scope.shelves 	= serviceData;
+			$scope.currentShelf = $scope.shelves[0];
+		});
+	}
+
 	$scope.loadMovieData = function() {
 		apiService.getUserMovies().then(serviceData => {
-			$scope.shelves 		= serviceData;
-			$scope.currentShelf = $scope.shelves[0];
+			$scope.shelves 	= serviceData;
 		});
 	}
 
@@ -12,5 +18,5 @@ angular.module('cinemaNode').controller('shelvesCtrl', function($scope, apiServi
 	}
 
 
-	$scope.loadMovieData();
+	$scope.initialLoad();
 })
