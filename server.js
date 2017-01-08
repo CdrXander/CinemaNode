@@ -29,7 +29,7 @@ var reviewNode 	= require('./node_controllers/reviewNode.js');
 
 //Connect to DB
 var conn = massive.connectSync({
-	connectionString:"postgres://postgres:" + config.pglogin + "@localhost/cinema_node"
+	connectionString:process.env.DATABASE_URL;
 });
 
 app.set('db',conn);
