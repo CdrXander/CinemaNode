@@ -1,16 +1,12 @@
 angular.module("cinemaNode").service("apiService", function($http, $q) {
 
-	var port = 3000;
-	var baseURL = "http://localhost:" + port;
-
-
-
+	
 //AUTHENTICATION	=	=	=	=	=	=	=	=	=	=	=
 
 //USERS =	=	=	=	=	=	=	=	=	=	=	=	=	=
 	this.getCurrentUser = () => {
 		var deferred = $q.defer();
-		var url = baseURL + "/user/current";
+		var url = "/user/current";
 		$http.get(url)
 		.success(response => {
 			deferred.resolve(response);
@@ -23,7 +19,7 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 	//GET shelves/movies for a user
 	this.getUserMovies = () => {
 		var deferred = $q.defer();
-		var url = "http://localhost:" + port + "/shelves/";
+		var url = "/shelves/";
 		$http.get(url)
 		.success(response => {
 			deferred.resolve(response);
@@ -34,7 +30,7 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 	//GET list of shelf names for user
 	this.getUserShelfList = () => {
 		var deferred = $q.defer();
-		var url = baseURL + "/shelves/list/";
+		var url = "/shelves/list/";
 		$http.get(url)
 		.success(response => {
 			deferred.resolve(response);
@@ -45,7 +41,7 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 	//GET shelf list for a movie/user combo
 	this.getShelvesForMovie = movie_id => {
 		var deferred = $q.defer();
-		var url = baseURL + "/shelves/movie/" + movie_id;
+		var url = "/shelves/movie/" + movie_id;
 		$http.get(url)
 		.success(response => {
 			deferred.resolve(response);
@@ -64,7 +60,7 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 		};
 
 		var deferred = $q.defer();
-		var url = baseURL + "/movies/addtoshelf/";
+		var url = "/movies/addtoshelf/";
 		$http.post(url,data)
 		.success(response => {
 			deferred.resolve();
@@ -74,7 +70,7 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 
 	this.deleteShelfMovie = (movie_id, shelf_id) => {
 		var deferred = $q.defer();
-		var url = baseURL + "/movies/shelfmovie/"+shelf_id+"/"+movie_id;
+		var url = "/movies/shelfmovie/"+shelf_id+"/"+movie_id;
 		$http.delete(url).success(response => {
 			deferred.resolve();
 		});
@@ -83,7 +79,7 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 
 	this.getMovieById = movie_id => {
 		var deferred = $q.defer();
-		var url = baseURL + "/movies/movie/" + movie_id;
+		var url = "/movies/movie/" + movie_id;
 		$http.get(url)
 		.success(response => {
 			if(!!response) {
@@ -102,7 +98,7 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 
 	this.getReviewsForMovie = movie_id => {
 		var deferred = $q.defer();
-		var url = baseURL + "/review/movie/" + movie_id;
+		var url = "/review/movie/" + movie_id;
 		$http.get(url).success(response => {
 			deferred.resolve(response);
 		});
@@ -111,7 +107,7 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 
 	this.getReviewForUser = movie_id => {
 		var deferred = $q.defer();
-		var url = baseURL + "/review/user/" + movie_id;
+		var url = "/review/user/" + movie_id;
 		$http.get(url).success(response => {
 			deferred.resolve(response);
 		});
@@ -126,7 +122,7 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 		}
 
 		var deferred = $q.defer();
-		var url = baseURL + '/review/new';
+		var url = '/review/new';
 		$http.post(url, reviewData).success(response => {
 			if(response == "200") {
 				deferred.resolve(true);

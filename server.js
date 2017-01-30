@@ -45,7 +45,7 @@ app.use(passport.session());
 passport.use('facebook', new fbStrategy({
 	clientID:config.facebook.appID,
 	clientSecret:config.facebook.appSecret,
-	callbackURL: config.baseURL + config.port + "/auth/facebook/callback",
+	callbackURL: "/auth/facebook/callback",
 	profileFields: ['id', 'displayName', 'photos']
 }, function(token, refreshToken, profile, done) {
 	return done(null,profile);
