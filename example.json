@@ -1,0 +1,9 @@
+
+//Create User
+{
+	"email": "test@test.com" ,
+    "first_name": "John" ,
+    "last_name": "Doe",
+    "password": "qwerty",
+    "photo_url": "./img/default_profile.png"
+}

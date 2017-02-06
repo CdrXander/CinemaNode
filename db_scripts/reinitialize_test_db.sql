@@ -35,9 +35,11 @@ CREATE TABLE public.users
 (
     user_id integer NOT NULL DEFAULT nextval('users_pk'::regclass),
     fb_user_id text ,
-    username text,
+    email text,
     first_name text ,
     last_name text,
+    password text,
+    password_salt text,
     photo_url text,
     join_date date,
     own_shelf_id integer,

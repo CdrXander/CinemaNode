@@ -1,7 +1,15 @@
 <section class="login-box">
 	<h2>Welcome to <span class="title-cinema">Cinema</span><span class="title-node">Node</span></h2>
 	<br>
-	<br>
+	<div class="container">
+		<label>email</label>
+		<input type="text" placeholder="Enter email" ng-model="loginEmail">
+
+		<label>Password</label>
+		<input type="password" placeholder="Enter Password" ng-model="loginPassword">
+
+		<button type="submit">Login</button>
+	</div>
 	<br>
 	<a class="btn btn-block btn-social btn-facebook" href="/auth/facebook">
 		<span class="fa fa-facebook"></span>Login with Facebook

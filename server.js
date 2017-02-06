@@ -72,7 +72,7 @@ var authcheck = function(req,res,next) {
 
 //END POINTS
 
-//Authentication
+//Authentication/Account Creation
 app.get("/auth/facebook", passport.authenticate("facebook"));
 app.get("/auth/facebook/callback", passport.authenticate("facebook"),userNode.loginUserFB);
 app.get("/auth/logout", function(req,res,next) {
@@ -83,6 +83,11 @@ app.get("/auth/logout", function(req,res,next) {
 app.get('/loggedin', function (req, res) {
 	res.send(req.isAuthenticated() ? req.session.currentUser : '0');
 })
+
+
+app.post("/api/auth/local/create", userNode.createUser);
+app.post("/api/auth/local/login", userNode.loginUser);
+
 
 //Users
 app.get('/user/current', userNode.getCurrentUser);
