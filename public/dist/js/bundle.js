@@ -151,6 +151,10 @@ angular.module('cinemaNode').controller('mainCtrl', function ($scope, apiService
 			$scope.currentUser = false;
 		}
 	});
+
+	$scope.loginLocal = function () {
+		apiService.loginLocal($scope.loginEmail, $scope.loginPassword);
+	};
 });
 'use strict';
 
@@ -205,6 +209,14 @@ angular.module("cinemaNode").service("apiService", function ($http, $q) {
 		return deferred.promise;
 	};
 
+	this.loginLocal = function (email, password) {
+		var deferred = $q.defer();
+		var url = "/api/auth/local/login";
+		var data = {
+			'email': email,
+			'password': password
+		};
+	};
 	//SHELVES 	=	=	=	=	=	=	=	=	=	=	=	=	=
 
 	//GET shelves/movies for a user

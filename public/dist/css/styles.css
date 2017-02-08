@@ -1110,6 +1110,13 @@ select, textarea {
   border-radius: 10px;
   overflow: visible; }
 
+.local-login {
+  margin: 15px;
+  padding: 10px; }
+  .local-login div {
+    margin-top: 5px;
+    margin-bottom: 5px; }
+
 @media (max-width: 600px) {
   .shelf-container {
     display: block; }

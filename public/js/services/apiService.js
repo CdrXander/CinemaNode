@@ -14,6 +14,15 @@ angular.module("cinemaNode").service("apiService", function($http, $q) {
 		return deferred.promise;
 	}
 
+
+	this.loginLocal = (email, password) => {
+		var deferred = $q.defer();
+		var url = "/api/auth/local/login";
+		var data = {
+			'email':email,
+			'password':password
+		}
+	}
 //SHELVES 	=	=	=	=	=	=	=	=	=	=	=	=	=
 
 	//GET shelves/movies for a user

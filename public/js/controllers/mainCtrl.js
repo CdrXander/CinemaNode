@@ -10,4 +10,8 @@ angular.module('cinemaNode').controller('mainCtrl', function($scope, apiService)
 		}
 	})
 
+	$scope.loginLocal = () => {
+		apiService.loginLocal($scope.loginEmail, $scope.loginPassword);
+	}
+
 })

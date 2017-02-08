@@ -248,6 +248,15 @@ select, textarea{
 	overflow: visible;
 }
 
+.local-login {
+	margin:15px;
+	padding: 10px;
+	div {
+		margin-top:5px;
+		margin-bottom: 5px;
+	}
+}
+
 
 @media (max-width:600px) {
 	.shelf-container {
